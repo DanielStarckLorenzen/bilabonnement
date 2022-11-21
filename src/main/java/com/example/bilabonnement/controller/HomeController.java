@@ -21,7 +21,10 @@ public class HomeController {
     }
 
     @GetMapping("/businessData")
-    public String seeDataOverview() {
+    public String seeDataOverview(Model model) {
+        List<Car> cars = repository.getAllCars();
+        model.addAttribute("cars", cars);
+
         return "businessData";
     }
 }
