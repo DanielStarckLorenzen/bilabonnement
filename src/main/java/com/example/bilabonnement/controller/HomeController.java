@@ -6,8 +6,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HomeController {
 
-    @GetMapping("/test")
+    @GetMapping("/")
     public String index() {
         return "index";
+    }
+    @GetMapping("/dataRegistration")
+    public String registerData(){
+        return "dataRegistration";
+    }
+
+    @GetMapping("/damageRegistration")
+    public String registerDamages(){
+        return "damageRegistration";
+    }
+
+    @GetMapping("/businessData")
+    public String seeDataOverview() {
+        return "businessData";
     }
 }
