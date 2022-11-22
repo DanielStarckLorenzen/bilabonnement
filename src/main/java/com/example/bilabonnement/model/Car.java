@@ -8,18 +8,29 @@ public class Car {
     private String manufacturer;
     private boolean isManual;
     private String accessories;
-    private double CO2Discharge;
-    private boolean isOnStock;
+    private double CO2discharge;
+    private String status;
+    //priser på biler når de lejes i x antal måneder
+    private int monthsPrice3;
+    private int monthsPrice6;
+    private int monthsPrice12;
+    private int monthsPrice24;
+    private int monthsPrice36;
 
-    public Car(int vehicleNumber, String frameName, String model, String manufacturer, boolean isManual, String accessories, double co2Discharge, boolean isOnStock) {
+    public Car(int vehicleNumber, String frameNumber, String model, String manufacturer, boolean isManual, String accessories, double CO2discharge, String status, int monthsPrice3, int monthsPrice6, int monthsPrice12, int monthsPrice24, int monthsPrice36) {
         this.vehicleNumber = vehicleNumber;
-        this.frameNumber = frameName;
+        this.frameNumber = frameNumber;
         this.model = model;
         this.manufacturer = manufacturer;
         this.isManual = isManual;
         this.accessories = accessories;
-        this.CO2Discharge = co2Discharge;
-        this.isOnStock = isOnStock;
+        this.CO2discharge = CO2discharge;
+        this.status = status;
+        this.monthsPrice3 = monthsPrice3;
+        this.monthsPrice6 = monthsPrice6;
+        this.monthsPrice12 = monthsPrice12;
+        this.monthsPrice24 = monthsPrice24;
+        this.monthsPrice36 = monthsPrice36;
     }
 
     public Car() {
@@ -81,12 +92,12 @@ public class Car {
         this.CO2discharge = CO2discharge;
     }
 
-    public boolean isOnStock() {
-        return isOnStock;
+    public String getStatus() {
+        return status;
     }
 
-    public void setOnStock(boolean onStock) {
-        isOnStock = onStock;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public int getMonthsPrice3() {
@@ -138,8 +149,13 @@ public class Car {
                 ", manufacturer='" + manufacturer + '\'' +
                 ", isManual=" + isManual +
                 ", accessories='" + accessories + '\'' +
-                ", co2Discharge=" + CO2Discharge +
-                ", isOnStock=" + isOnStock +
+                ", CO2discharge=" + CO2discharge +
+                ", status='" + status + '\'' +
+                ", monthsPrice3=" + monthsPrice3 +
+                ", monthsPrice6=" + monthsPrice6 +
+                ", monthsPrice12=" + monthsPrice12 +
+                ", monthsPrice24=" + monthsPrice24 +
+                ", monthsPrice36=" + monthsPrice36 +
                 '}';
     }
 }
