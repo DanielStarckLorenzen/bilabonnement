@@ -70,4 +70,11 @@ public class HomeController {
 
         return "showCar";
     }
+
+    @PostMapping("/registrerAgreement")
+    public String registrerAgreement(WebRequest dataFromForm) {
+
+
+        return "redirect:/";
+    }
 }

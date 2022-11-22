@@ -13,22 +13,40 @@
 </div>
 
 <div id="selectPrices">
-    <form method="POST" action="">
-    <table class="table" id="monthsPrice">
-        <tr><td th:text="${chosenCar.getMonthsPrice3()}"></td><td><input type="checkbox"></td></tr>
-        <tr><td th:text="${chosenCar.getMonthsPrice6()}"></td><td><input type="checkbox"></td></tr>
-        <tr><td th:text="${chosenCar.getMonthsPrice12()}"></td><td><input type="checkbox"></td></tr>
-        <tr><td th:text="${chosenCar.getMonthsPrice24()}"></td><td><input type="checkbox"></td></tr>
-        <tr><td th:text="${chosenCar.getMonthsPrice36()}"></td><td><input type="checkbox"></td></tr>
-    </table>
-
-        <table class="table">
-            <tr><td th:text="${chosenCar.getMonthsPrice3()}"></td><td><input type="checkbox"></td></tr>
-            <tr><td th:text="${chosenCar.getMonthsPrice6()}"></td><td><input type="checkbox"></td></tr>
-            <tr><td th:text="${chosenCar.getMonthsPrice12()}"></td><td><input type="checkbox"></td></tr>
-            <tr><td th:text="${chosenCar.getMonthsPrice24()}"></td><td><input type="checkbox"></td></tr>
-            <tr><td th:text="${chosenCar.getMonthsPrice36()}"></td><td><input type="checkbox"></td></tr>
+    <form method="POST" action="/">
+        <table class="table" id="monthsPrice">
+            <thead>
+            <tr>
+                <th>Abonnementslængde</th>
+                <th>Pris pr. måned</th>
+                <th>Vælg plan</th>
+            </tr>
+            </thead>
+            <tr><td>3 mdr.</td><td th:text="${chosenCar.getMonthsPrice3()}"></td><td><input type="checkbox"></td></tr>
+            <tr><td>6 mdr.</td><td th:text="${chosenCar.getMonthsPrice6()}"></td><td><input type="checkbox"></td></tr>
+            <tr><td>12 mdr.</td><td th:text="${chosenCar.getMonthsPrice12()}"></td><td><input type="checkbox"></td></tr>
+            <tr><td>24 mdr.</td><td th:text="${chosenCar.getMonthsPrice24()}"></td><td><input type="checkbox"></td></tr>
+            <tr><td>36 mdr.</td><td th:text="${chosenCar.getMonthsPrice36()}"></td><td><input type="checkbox"></td></tr>
         </table>
+    <br><br>
+        <table class="table" id="kilometersPrice">
+            <thead>
+            <tr>
+                <th>Kilometer pr. måned</th>
+                <th>Ekstra pris pr. måned</th>
+                <th>Vælg plan</th>
+            </tr>
+            </thead>
+            <tr><td>1.500 km.</td><td th:text="${kilometersPrice.get('1.500 km.')}"></td><td><input type="checkbox"></td></tr>
+            <tr><td>1.750 km.</td><td th:text="${kilometersPrice.get('1.750 km.')}"></td><td><input type="checkbox"></td></tr>
+            <tr><td>2.000 km.</td><td th:text="${kilometersPrice.get('2.000 km.')}"></td><td><input type="checkbox"></td></tr>
+            <tr><td>2.500 km.</td><td th:text="${kilometersPrice.get('2.500 km.')}"></td><td><input type="checkbox"></td></tr>
+            <tr><td>3.000 km.</td><td th:text="${kilometersPrice.get('3.000 km.')}"></td><td><input type="checkbox"></td></tr>
+            <tr><td>3.500 km.</td><td th:text="${kilometersPrice.get('3.500 km.')}"></td><td><input type="checkbox"></td></tr>
+            <tr><td>4.000 km.</td><td th:text="${kilometersPrice.get('4.000 km.')}"></td><td><input type="checkbox"></td></tr>
+            <tr><td>4.500 km.</td><td th:text="${kilometersPrice.get('4.500 km.')}"></td><td><input type="checkbox"></td></tr>
+        </table>
+        <button type="submit" class="btn btn-outline-success">Bekræft!</button>
     </form>
 </div>
 </body>
