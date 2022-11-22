@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Din Nye Bil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="../static/styles.css">
+</head>
+<body>
+<div id="information">
+
+</div>
+
+<div id="selectPrices">
+    <form method="POST" action="">
+    <table class="table" id="monthsPrice">
+        <tr><td th:text="${chosenCar.getMonthsPrice3()}"></td><td><input type="checkbox"></td></tr>
+        <tr><td th:text="${chosenCar.getMonthsPrice6()}"></td><td><input type="checkbox"></td></tr>
+        <tr><td th:text="${chosenCar.getMonthsPrice12()}"></td><td><input type="checkbox"></td></tr>
+        <tr><td th:text="${chosenCar.getMonthsPrice24()}"></td><td><input type="checkbox"></td></tr>
+        <tr><td th:text="${chosenCar.getMonthsPrice36()}"></td><td><input type="checkbox"></td></tr>
+    </table>
+
+        <table class="table">
+            <tr><td th:text="${chosenCar.getMonthsPrice3()}"></td><td><input type="checkbox"></td></tr>
+            <tr><td th:text="${chosenCar.getMonthsPrice6()}"></td><td><input type="checkbox"></td></tr>
+            <tr><td th:text="${chosenCar.getMonthsPrice12()}"></td><td><input type="checkbox"></td></tr>
+            <tr><td th:text="${chosenCar.getMonthsPrice24()}"></td><td><input type="checkbox"></td></tr>
+            <tr><td th:text="${chosenCar.getMonthsPrice36()}"></td><td><input type="checkbox"></td></tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
