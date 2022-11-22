@@ -30,7 +30,12 @@ public class CarRepository {
                         resultSet.getBoolean("isManual"),
                         resultSet.getString("accessories"),
                         resultSet.getDouble("CO2discharge"),
-                        resultSet.getBoolean("isOnStock")
+                        resultSet.getString("status"),
+                        resultSet.getInt("3MonthsPrice"),
+                        resultSet.getInt("6MonthsPrice"),
+                        resultSet.getInt("12MonthsPrice"),
+                        resultSet.getInt("24MonthsPrice"),
+                        resultSet.getInt("36MonthsPrice")
                 ));
             }
 

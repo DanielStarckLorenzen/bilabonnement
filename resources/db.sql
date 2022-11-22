@@ -40,6 +40,13 @@ CREATE TABLE IF NOT EXISTS damages(
 
 
 DROP TABLE car;
+
+alter table car
+add column 3MonthsPrice int,
+    add column 6MonthsPrice int,
+add column 12MonthsPrice int,
+add column 24MonthsPrice int,
+add column 36MonthsPrice int;
 # TRUNCATE car;
 # TRUNCATE rentalAgreements;
 # TRUNCATE damages;

@@ -33,12 +33,12 @@ public class Car {
         this.vehicleNumber = vehicleNumber;
     }
 
-    public String getFrameName() {
+    public String getFrameNumber() {
         return frameNumber;
     }
 
-    public void setFrameName(String frameName) {
-        this.frameNumber = frameName;
+    public void setFrameNumber(String frameNumber) {
+        this.frameNumber = frameNumber;
     }
 
     public String getModel() {
@@ -73,12 +73,12 @@ public class Car {
         this.accessories = accessories;
     }
 
-    public double getCo2Discharge() {
-        return CO2Discharge;
+    public double getCO2discharge() {
+        return CO2discharge;
     }
 
-    public void setCo2Discharge(double co2Discharge) {
-        this.CO2Discharge = co2Discharge;
+    public void setCO2discharge(double CO2discharge) {
+        this.CO2discharge = CO2discharge;
     }
 
     public boolean isOnStock() {
@@ -87,6 +87,46 @@ public class Car {
 
     public void setOnStock(boolean onStock) {
         isOnStock = onStock;
+    }
+
+    public int getMonthsPrice3() {
+        return monthsPrice3;
+    }
+
+    public void setMonthsPrice3(int monthsPrice3) {
+        this.monthsPrice3 = monthsPrice3;
+    }
+
+    public int getMonthsPrice6() {
+        return monthsPrice6;
+    }
+
+    public void setMonthsPrice6(int monthsPrice6) {
+        this.monthsPrice6 = monthsPrice6;
+    }
+
+    public int getMonthsPrice12() {
+        return monthsPrice12;
+    }
+
+    public void setMonthsPrice12(int monthsPrice12) {
+        this.monthsPrice12 = monthsPrice12;
+    }
+
+    public int getMonthsPrice24() {
+        return monthsPrice24;
+    }
+
+    public void setMonthsPrice24(int monthsPrice24) {
+        this.monthsPrice24 = monthsPrice24;
+    }
+
+    public int getMonthsPrice36() {
+        return monthsPrice36;
+    }
+
+    public void setMonthsPrice36(int monthsPrice36) {
+        this.monthsPrice36 = monthsPrice36;
     }
 
     @Override
