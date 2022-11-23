@@ -9,5 +9,12 @@
 </head>
 <body>
 <h1>Her kan du oprette skader på bilerne</h1>
+
+<tbody>
+<tr th:each="car: ${rentedCars}">
+    <td th:text="${car.manufacturer}"></td>
+    <td th:text="${car.model}"></td>
+</tr>
+</tbody>
 </body>
 </html>

@@ -24,6 +24,7 @@ public class HomeController {
     private CarService carService = new CarService();
     private Car car = new Car();
     private List<Car> cars = repository.getAllCars();
+    private List<Car> rentedCars = repository.getAllRentedCars();
 
     @GetMapping("/")
     public String index() {
@@ -37,8 +38,12 @@ public class HomeController {
     }
 
     @GetMapping("/damageRegistration")
-    public String registerDamages(){
+    public String registerDamages(Model model){
          Connection con = DatabaseManager.getConnection();
+
+         //Test model
+         model.addAttribute("rentedCars",rentedCars);
+
         return "damageRegistration";
     }
 
