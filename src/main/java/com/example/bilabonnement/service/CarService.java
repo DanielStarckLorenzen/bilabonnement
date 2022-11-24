@@ -64,7 +64,7 @@ public class CarService {
     }
 
     public int totalSumOfRentedCars() {
-        List<Car> rentedCars = carRepository.getAllRentedCars();
+        List<Car> rentedCars = carRepository.getAllCarsStatus("Rented");
 
         int totalSum = 0;
 
@@ -76,7 +76,7 @@ public class CarService {
     }
 
     public int amountOfCarsRented() {
-        return carRepository.getAllRentedCars().size();
+        return carRepository.getAllCarsStatus("Rented").size();
     }
 
 

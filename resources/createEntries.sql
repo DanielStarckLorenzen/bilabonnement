@@ -5,3 +5,5 @@ INSERT INTO car (frameNumber, model, manufacturer, isManual, accessories, CO2dis
 INSERT INTO car (frameNumber, model, manufacturer, isManual, accessories, CO2discharge, status, 3MonthsPrice, 6MonthsPrice, 12MonthsPrice, 24MonthsPrice, 36MonthsPrice) VALUES ('8HSGDS8H242', '108', 'PEUGEOT', '1', 'none', '111', 'OnStock', 3899, 3299, 2999, 2899, 2799);
 
 delete from rentalagreements where vehicleNumber = 4;
+
+alter table damages add damageCosts double;

@@ -45,10 +45,42 @@ public class HomeController {
     public String registerDamages(Model model){
         model.addAttribute("allCars", allCars);
         model.addAttribute("damagedCars", repository.getAllCarsStatus(damaged));
-        model.addAttribute("test", repository.getAllCarsStatus(rented));
+        model.addAttribute("carsOnStock", repository.getAllCarsStatus(onStock));
 
 
         return "damageRegistration";
+    }
+
+    @PostMapping("/registerDamage")
+    public String registerDamage(WebRequest dataFromForm, Model model) {
+        int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
+
+        Car damagedCar = new Car();
+
+        for (Car car : allCars) {
+            if (vehicleNumber == car.getVehicleNumber()) {
+                damagedCar = car;
+            }
+        }
+        model.addAttribute("damagedCar", damagedCar);
+
+        return "damageReport";
+    }
+
+    @PostMapping("/createDamageReport")
+    public String createDamageReport(WebRequest dataFromForm) {
+        int damagedCarNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("damagedCar")));
+        Car damagedCar = new Car();
+        for (Car car : allCars) {
+            if (damagedCarNumber == car.getVehicleNumber()) {
+                damagedCar = car;
+            }
+        }
+        String problem = dataFromForm.getParameter("problem");
+        double costs = Double.parseDouble(Objects.requireNonNull(dataFromForm.getParameter("costs")));
+        repository.createDamageReport(damagedCar, problem, costs);
+
+        return "redirect:/";
     }
 
     @GetMapping("/businessData")
@@ -82,6 +114,7 @@ public class HomeController {
         return "showCar";
     }
 
+    //Ret registrer til register
     @PostMapping("/registrerAgreement")
     public String registrerAgreement(WebRequest dataFromForm) {
         int monthsRented = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("monthsRented")));

@@ -133,4 +133,29 @@ public class CarRepository {
         return rentalAgreement;
     }
 
+    public void createDamageReport(Car car, String problem, double costs) {
+        String frameNumber = car.getFrameNumber();
+        int vehicleNumber = car.getVehicleNumber();
+
+        try {
+            pst = conn.prepareStatement("insert into damages (problem, frameNumber, vehicleNumber, damageCosts) values (?, ?, ?, ?)");
+            pst.setString(1, problem);
+            pst.setString(2, frameNumber);
+            pst.setInt(3, vehicleNumber);
+            pst.setDouble(4, costs);
+
+            pst.executeUpdate();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        try {
+            pst = conn.prepareStatement("update car set status = 'Damaged' where vehicleNumber = ?");
+            pst.setInt(1, vehicleNumber);
+
+            pst.executeUpdate();
+        } catch (SQLException e){
+            System.out.println(e);
+        }
+    }
+
 }
