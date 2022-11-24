@@ -36,12 +36,7 @@ public class Car {
     public Car() {
     }
 
-    public Car(int vehicleNumber, String frameNumber, String model, String manufacturer) {
-        this.vehicleNumber = vehicleNumber;
-        this.frameNumber = frameNumber;
-        this.model = model;
-        this.manufacturer = manufacturer;
-    }
+
 
     public int getVehicleNumber() {
         return vehicleNumber;

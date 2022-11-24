@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,8 +22,10 @@ public class HomeController {
     private CarRepository repository = new CarRepository();
     private CarService carService = new CarService();
     private Car car = new Car();
-    private List<Car> cars = repository.getAllCars();
+    private List<Car> allCars = repository.getAllCars();
     private List<Car> rentedCars = repository.getAllRentedCars();
+    private List<Car> carsOnStock = repository.getAllCarsOnStock();
+
 
     @GetMapping("/")
     public String index() {
@@ -32,7 +33,7 @@ public class HomeController {
     }
     @GetMapping("/dataRegistration")
     public String registerData(Model model){
-        model.addAttribute("cars", cars);
+        model.addAttribute("cars", carsOnStock);
 
         return "dataRegistration";
     }
@@ -49,6 +50,9 @@ public class HomeController {
 
     @GetMapping("/businessData")
     public String seeDataOverview(Model model) {
+        model.addAttribute("totalSumOfRentedCars", carService.totalSumOfRentedCars());
+        model.addAttribute("amountOfCarsRented", carService.amountOfCarsRented());
+
         return "businessData";
     }
 
@@ -64,7 +68,7 @@ public class HomeController {
         System.out.println(carModel);
 
         Car chosenCar = null;
-        for (Car car : cars) {
+        for (Car car : allCars) {
             if (car.getModel().equals(carModel)) {
                 chosenCar = car;
             }
@@ -78,8 +82,22 @@ public class HomeController {
 
     @PostMapping("/registrerAgreement")
     public String registrerAgreement(WebRequest dataFromForm) {
+        int monthsRented = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("monthsRented")));
+        int kilometers = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("kilometers")));
+        int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
 
+        Car chosenCar = null;
+
+        for (Car car : allCars) {
+            if (car.getVehicleNumber() == vehicleNumber) {
+                chosenCar = car;
+            }
+        }
+
+        repository.createRentalAgreement(chosenCar, monthsRented, kilometers);
 
         return "redirect:/";
     }
+
+
 }
