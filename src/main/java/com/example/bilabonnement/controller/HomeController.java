@@ -14,6 +14,7 @@ import org.springframework.web.context.request.WebRequest;
 
 import java.sql.Connection;
 import java.util.List;
+import java.util.Objects;
 
 
 @Controller
@@ -40,10 +41,7 @@ public class HomeController {
 
     @GetMapping("/damageRegistration")
     public String registerDamages(Model model){
-         Connection con = DatabaseManager.getConnection();
 
-         //Test model
-         model.addAttribute("rentedCars",rentedCars);
 
         return "damageRegistration";
     }
@@ -73,7 +71,6 @@ public class HomeController {
                 chosenCar = car;
             }
         }
-
         model.addAttribute("kilometersPrice", carService.kilometersPrice());
         model.addAttribute("chosenCar", chosenCar);
 
