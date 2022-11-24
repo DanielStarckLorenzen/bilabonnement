@@ -36,7 +36,7 @@ public class HomeController {
     }
     @GetMapping("/dataRegistration")
     public String registerData(Model model){
-        model.addAttribute("cars", carsOnStock);
+        model.addAttribute("cars", repository.getAllCarsStatus(onStock));
 
         return "dataRegistration";
     }
