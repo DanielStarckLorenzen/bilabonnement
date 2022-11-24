@@ -50,46 +50,12 @@ public class CarRepository {
         return cars;
     }
 
-
-
-    public List<Car> getAllRentedCars() {
+    public List<Car> getAllCarsStatus(String status) {
         List<Car> cars = new ArrayList<>();
 
         try {
-            pst = conn.prepareStatement("SELECT * FROM car WHERE status like '%Rented%'");
-
-            ResultSet resultSet = pst.executeQuery();
-
-            while (resultSet.next()) {
-                cars.add(new Car(
-                        resultSet.getInt("vehicleNumber"),
-                        resultSet.getString("frameNumber"),
-                        resultSet.getString("model"),
-                        resultSet.getString("manufacturer"),
-                        resultSet.getBoolean("isManual"),
-                        resultSet.getString("accessories"),
-                        resultSet.getDouble("CO2discharge"),
-                        resultSet.getString("status"),
-                        resultSet.getInt("3MonthsPrice"),
-                        resultSet.getInt("6MonthsPrice"),
-                        resultSet.getInt("12MonthsPrice"),
-                        resultSet.getInt("24MonthsPrice"),
-                        resultSet.getInt("36MonthsPrice")
-                ));
-            }
-
-        } catch (SQLException e) {
-            System.out.println("SQL exception");
-        }
-
-        return cars;
-    }
-
-    public List<Car> getAllCarsOnStock() {
-        List<Car> cars = new ArrayList<>();
-
-        try {
-            pst = conn.prepareStatement("SELECT * FROM car WHERE status like '%OnStock%'");
+            pst = conn.prepareStatement("SELECT * FROM car WHERE status like ?");
+            pst.setString(1, status);
 
             ResultSet resultSet = pst.executeQuery();
 

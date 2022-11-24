@@ -20,12 +20,14 @@ import java.util.Objects;
 @Controller
 public class HomeController {
 
+    private String onStock = "OnStock";
+    private String rented = "Rented";
+    private String damaged = "Damaged";
+
     private CarRepository repository = new CarRepository();
     private CarService carService = new CarService();
     private Car car = new Car();
     private List<Car> allCars = repository.getAllCars();
-    private List<Car> rentedCars = repository.getAllRentedCars();
-    private List<Car> carsOnStock = repository.getAllCarsOnStock();
 
 
     @GetMapping("/")
@@ -41,6 +43,9 @@ public class HomeController {
 
     @GetMapping("/damageRegistration")
     public String registerDamages(Model model){
+        model.addAttribute("allCars", allCars);
+        model.addAttribute("damagedCars", repository.getAllCarsStatus(damaged));
+        model.addAttribute("test", repository.getAllCarsStatus(rented));
 
 
         return "damageRegistration";
