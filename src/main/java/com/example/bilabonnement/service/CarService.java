@@ -79,5 +79,8 @@ public class CarService {
         return carRepository.getAllCarsStatus("Rented").size();
     }
 
+    public int getRecentRentalId(int rentalId) {
+        return rentalId;
+    }
 
 }

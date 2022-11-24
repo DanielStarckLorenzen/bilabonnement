@@ -14,6 +14,10 @@ import java.util.Map;
 
 public class CarRepository {
 
+    private String onStock = "OnStock";
+    private String rented = "Rented";
+    private String damaged = "Damaged";
+
     private Connection conn = DatabaseManager.getConnection();
     private PreparedStatement pst = null;
 
@@ -84,6 +88,29 @@ public class CarRepository {
         return cars;
     }
 
+    public void changeStatus(String status, int vehicleNumber) {
+        try {
+            pst = conn.prepareStatement("update car set status = ? where vehicleNumber = ?");
+            pst.setString(1, status);
+            pst.setInt(2, vehicleNumber);
+
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateIsOverTraveled(boolean isOverTraveled, int rentalId) {
+        try {
+            pst = conn.prepareStatement("update rentalagreements set isOverTraveled = ? where rentalId = ?");
+            pst.setBoolean(1, isOverTraveled);
+            pst.setInt(2, rentalId);
+
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public void createRentalAgreement (Car car, int monthsRented, int kilometersPerMonth) {
         String frameNumber = car.getFrameNumber();
         int vehicleNumber = car.getVehicleNumber();
@@ -99,14 +126,7 @@ public class CarRepository {
         }catch (SQLException e){
             System.out.println(e);
         }
-        try {
-            pst = conn.prepareStatement("update car set status = 'Rented' where vehicleNumber = ?");
-            pst.setInt(1,vehicleNumber);
-
-            pst.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e);;
-        }
+        changeStatus(rented, vehicleNumber);
     }
 
     public RentalAgreements getMonthsAndKilometers(int vehicleNumber) {
@@ -148,14 +168,7 @@ public class CarRepository {
         }catch(SQLException e){
             System.out.println(e);
         }
-        try {
-            pst = conn.prepareStatement("update car set status = 'Damaged' where vehicleNumber = ?");
-            pst.setInt(1, vehicleNumber);
-
-            pst.executeUpdate();
-        } catch (SQLException e){
-            System.out.println(e);
-        }
+        changeStatus(damaged, vehicleNumber);
     }
 
 }

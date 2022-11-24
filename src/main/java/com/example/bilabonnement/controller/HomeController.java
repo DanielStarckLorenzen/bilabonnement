@@ -1,6 +1,7 @@
 package com.example.bilabonnement.controller;
 
 import com.example.bilabonnement.model.Car;
+import com.example.bilabonnement.model.RentalAgreements;
 import com.example.bilabonnement.repository.CarRepository;
 import com.example.bilabonnement.repository.DatabaseManager;
 
@@ -36,9 +37,27 @@ public class HomeController {
     }
     @GetMapping("/dataRegistration")
     public String registerData(Model model){
-        model.addAttribute("cars", repository.getAllCarsStatus(onStock));
+        model.addAttribute("carsOnStock", repository.getAllCarsStatus(onStock));
+        model.addAttribute("carsRentedOut", repository.getAllCarsStatus(rented));
 
         return "dataRegistration";
+    }
+
+    @PostMapping("/returnCar")
+    public String returnCar(WebRequest dataFromForm) {
+        int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
+        boolean isOverTraveled = Boolean.parseBoolean(dataFromForm.getParameter("isOverTraveled"));
+
+        int rentalId;
+        for (Car car : repository.getAllCarsStatus(rented)) {
+            if (car.getVehicleNumber() == vehicleNumber) {
+
+            }
+        }
+
+        repository.changeStatus(onStock, vehicleNumber);
+
+        return "redirect:/dataRegistration";
     }
 
     @GetMapping("/damageRegistration")
