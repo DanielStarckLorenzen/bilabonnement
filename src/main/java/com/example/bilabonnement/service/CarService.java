@@ -5,10 +5,7 @@ import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.RentalAgreements;
 import com.example.bilabonnement.repository.CarRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CarService {
 

@@ -6,4 +6,6 @@ INSERT INTO car (frameNumber, model, manufacturer, isManual, accessories, CO2dis
 
 delete from rentalagreements where vehicleNumber = 4;
 
-alter table damages add damageCosts double;
+delete from rentalagreements where vehicleNumber = 6;
+
+alter table rentalagreements add column overdrivenCost double;

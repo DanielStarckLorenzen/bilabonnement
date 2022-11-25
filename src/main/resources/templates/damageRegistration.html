@@ -8,9 +8,24 @@
     <link href="../static/styles.css">
 </head>
 <body>
-<h1>Her kan du oprette skader på bilerne</h1>
-
-<table class="table table-dark">
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/">Hjem</a>
+                <a class="nav-link" href="/dataRegistration">Data registrering</a>
+                <a class="nav-link" href="/damageRegistration">Skade registrering</a>
+                <a class="nav-link" href="/businessData">Forretningsdata</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<br>
+<h2>Her kan du oprette skader på bilerne</h2>
+<table class="table">
     <thead>
     <tr>
         <th scope="col">Mærke</th>
@@ -28,6 +43,32 @@
         <td th:text="${car.frameNumber}"></td>
         <td th:text="${car.status}"></td>
         <form id="chooseCar" method="post" action="/registerDamage">
+            <td> <input type="submit" name="Vælg" value="Vælg"></td>
+            <input type="hidden" name="vehicleNumber" th:value="${car.vehicleNumber}">
+        </form>
+    </tr>
+    </tbody>
+</table>
+<br><br>
+<h2>Biler til reparation</h2>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Mærke</th>
+        <th scope="col">Model</th>
+        <th scope="col">Manuelt gear</th>
+        <th scope="col">CO2 udledning</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car: ${damagedCars}">
+        <td th:text="${car.manufacturer}"></td>
+        <td th:text="${car.model}"></td>
+        <td th:text="${car.isManual}"></td>
+        <td th:text="${car.CO2discharge}"></td>
+        <td th:text="${car.frameNumber}"></td>
+        <td th:text="${car.status}"></td>
+        <form id="carReturning" method="post" action="/returnFromRepair">
             <td> <input type="submit" name="Vælg" value="Vælg"></td>
             <input type="hidden" name="vehicleNumber" th:value="${car.vehicleNumber}">
         </form>

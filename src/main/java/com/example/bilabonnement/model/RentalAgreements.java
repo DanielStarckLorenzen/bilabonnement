@@ -8,6 +8,7 @@ public class RentalAgreements {
     private boolean isOverTraveled;
     private String frameNumber;
     private int vehicleNumber;
+    private double overdrivenCost;
 
     public RentalAgreements(int rentalId, int monthsRented, int kilometerPerMonth, boolean isOverTraveled, String frameNumber, int vehicleNumber) {
         this.rentalId = rentalId;
@@ -69,15 +70,24 @@ public class RentalAgreements {
         isOverTraveled = overTraveled;
     }
 
+    public double getOverdrivenCost() {
+        return overdrivenCost;
+    }
+
+    public void setOverdrivenCost(double overdrivenCost) {
+        this.overdrivenCost = overdrivenCost;
+    }
+
     @Override
     public String toString() {
         return "RentalAgreements{" +
                 "rentalId=" + rentalId +
                 ", monthsRented=" + monthsRented +
                 ", kilometerPerMonth=" + kilometerPerMonth +
-                ", isOverTraveled=" + isOverTraveled +
+                ", kilometersOverDriven=" + kilometersOverDriven +
                 ", frameNumber='" + frameNumber + '\'' +
                 ", vehicleNumber=" + vehicleNumber +
+                ", overdrivenCost=" + overdrivenCost +
                 '}';
     }
 }

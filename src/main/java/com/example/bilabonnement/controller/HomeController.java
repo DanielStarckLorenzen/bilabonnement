@@ -46,15 +46,9 @@ public class HomeController {
     @PostMapping("/returnCar")
     public String returnCar(WebRequest dataFromForm) {
         int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
-        boolean isOverTraveled = Boolean.parseBoolean(dataFromForm.getParameter("isOverTraveled"));
+        int totalKilometersTraveled = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("overTraveled")));
 
-        int rentalId;
-        for (Car car : repository.getAllCarsStatus(rented)) {
-            if (car.getVehicleNumber() == vehicleNumber) {
-
-            }
-        }
-
+        carService.calculateOverDrivenKm(vehicleNumber, totalKilometersTraveled);
         repository.changeStatus(onStock, vehicleNumber);
 
         return "redirect:/dataRegistration";
@@ -99,7 +93,15 @@ public class HomeController {
         double costs = Double.parseDouble(Objects.requireNonNull(dataFromForm.getParameter("costs")));
         repository.createDamageReport(damagedCar, problem, costs);
 
-        return "redirect:/";
+        return "redirect:/damageRegistration";
+    }
+
+    @PostMapping("/returnFromRepair")
+    public String returnFromRepair(WebRequest dataFromForm) {
+        int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
+        repository.changeStatus(onStock, vehicleNumber);
+
+        return "redirect:/damageRegistration";
     }
 
     @GetMapping("/businessData")

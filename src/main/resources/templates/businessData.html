@@ -2,18 +2,30 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Forretning</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href="../static/styles.css">
 </head>
 <body>
-<p>Her er der noget forretningsshit</p>
-
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+                <a class="nav-link" href="/">Hjem</a>
+                <a class="nav-link" href="/dataRegistration">Data registrering</a>
+                <a class="nav-link" href="/damageRegistration">Skade registrering</a>
+                <a class="nav-link" href="/businessData">Forretningsdata</a>
+            </div>
+        </div>
+    </div>
+</nav>
+<br>
 <h1 th:text="${totalSumOfRentedCars}"></h1> <br>
 <h1 th:text="${amountOfCarsRented}"></h1>
 
-
-</table>
 </body>
 </html>

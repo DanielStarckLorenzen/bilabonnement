@@ -43,7 +43,8 @@ public class CarRepository {
                         resultSet.getInt("6MonthsPrice"),
                         resultSet.getInt("12MonthsPrice"),
                         resultSet.getInt("24MonthsPrice"),
-                        resultSet.getInt("36MonthsPrice")
+                        resultSet.getInt("36MonthsPrice"),
+                        resultSet.getInt("totalKilometersDriven")
                 ));
             }
 
@@ -77,7 +78,8 @@ public class CarRepository {
                         resultSet.getInt("6MonthsPrice"),
                         resultSet.getInt("12MonthsPrice"),
                         resultSet.getInt("24MonthsPrice"),
-                        resultSet.getInt("36MonthsPrice")
+                        resultSet.getInt("36MonthsPrice"),
+                        resultSet.getInt("totalKilometersDriven")
                 ));
             }
 
@@ -100,11 +102,13 @@ public class CarRepository {
         }
     }
 
-    public void updateIsOverTraveled(boolean isOverTraveled, int rentalId) {
+    public void updateIsOverTraveled(int kilometersOverdriven, int rentalId) {
         try {
             pst = conn.prepareStatement("update rentalagreements set isOverTraveled = ? where rentalId = ?");
             pst.setBoolean(1, isOverTraveled);
             pst.setInt(2, rentalId);
+
+            pst.executeUpdate();
 
         } catch (SQLException e) {
             System.out.println(e);
@@ -141,7 +145,7 @@ public class CarRepository {
                         resultSet.getInt("rentalId"),
                         resultSet.getInt("monthsRented"),
                         resultSet.getInt("kilometerPerMonth"),
-                        resultSet.getBoolean("isOverTraveled"),
+                        resultSet.getInt("kilometersOverdriven"),
                         resultSet.getString("frameNumber"),
                         resultSet.getInt("vehicleNumber")
                 );
@@ -169,6 +173,59 @@ public class CarRepository {
             System.out.println(e);
         }
         changeStatus(damaged, vehicleNumber);
+    }
+
+    public List<RentalAgreements> getAllRentalAgreements() {
+        List<RentalAgreements> rentalAgreements = new ArrayList<>();
+        try {
+            pst = conn.prepareStatement("select * from rentalagreements");
+
+            ResultSet resultSet = pst.executeQuery();
+
+            while (resultSet.next()) {
+                rentalAgreements.add(new RentalAgreements(
+                        resultSet.getInt("rentalId"),
+                        resultSet.getInt("monthsRented"),
+                        resultSet.getInt("kilometerPerMonth"),
+                        resultSet.getInt("kilometersOverDriven"),
+                        resultSet.getString("frameNumber"),
+                        resultSet.getInt("vehicleNumber"),
+                        resultSet.getDouble("overdrivenCost")
+                ));
+            }
+
+        } catch(SQLException e){
+            System.out.println(e);
+        }
+        return rentalAgreements;
+    }
+
+    public int getMaxRentalId(int vehicleNumber) {
+        int rentalId = 0;
+        try {
+            pst = conn.prepareStatement("select max(rentalId) from rentalagreements where vehicleNumber = ?");
+            pst.setInt(1, vehicleNumber);
+
+            ResultSet resultSet = pst.executeQuery();
+
+            if (resultSet.next())
+                rentalId = resultSet.getInt(1);
+        } catch (SQLException e){
+            System.out.println(e);
+        }
+        return rentalId;
+    }
+
+    public void updateOverdrivenCost(double overdrivenCost, int rentalId) {
+        try {
+            pst = conn.prepareStatement("update rentalagreements set overdrivenCost = ? where rentalId = ?");
+            pst.setDouble(1, overdrivenCost);
+            pst.setDouble(2, rentalId);
+
+            pst.executeUpdate();
+        } catch(SQLException e){
+            System.out.println(e);
+        }
     }
 
 }

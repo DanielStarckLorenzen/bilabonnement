@@ -17,7 +17,9 @@ public class Car {
     private int monthsPrice24;
     private int monthsPrice36;
 
-    public Car(int vehicleNumber, String frameNumber, String model, String manufacturer, boolean isManual, String accessories, double CO2discharge, String status, int monthsPrice3, int monthsPrice6, int monthsPrice12, int monthsPrice24, int monthsPrice36) {
+    private int totalKilometersDriven;
+
+    public Car(int vehicleNumber, String frameNumber, String model, String manufacturer, boolean isManual, String accessories, double CO2discharge, String status, int monthsPrice3, int monthsPrice6, int monthsPrice12, int monthsPrice24, int monthsPrice36, int totalKilometersDriven) {
         this.vehicleNumber = vehicleNumber;
         this.frameNumber = frameNumber;
         this.model = model;
@@ -31,6 +33,7 @@ public class Car {
         this.monthsPrice12 = monthsPrice12;
         this.monthsPrice24 = monthsPrice24;
         this.monthsPrice36 = monthsPrice36;
+        this.totalKilometersDriven = totalKilometersDriven;
     }
 
     public Car() {
@@ -142,6 +145,14 @@ public class Car {
         this.monthsPrice36 = monthsPrice36;
     }
 
+    public int getTotalKilometersDriven() {
+        return totalKilometersDriven;
+    }
+
+    public void setTotalKilometersDriven(int totalKilometersDriven) {
+        this.totalKilometersDriven = totalKilometersDriven;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -158,6 +169,7 @@ public class Car {
                 ", monthsPrice12=" + monthsPrice12 +
                 ", monthsPrice24=" + monthsPrice24 +
                 ", monthsPrice36=" + monthsPrice36 +
+                ", totalKilometersDriven=" + totalKilometersDriven +
                 '}';
     }
 }
