@@ -9,6 +9,8 @@ import java.util.*;
 
 public class CarService {
 
+    private final double OVERDRIVEN_COST = 0.75;
+
     private CarRepository carRepository = new CarRepository();
 
     public Map<String, Integer> kilometersPrice() {
@@ -75,9 +77,37 @@ public class CarService {
     public int amountOfCarsRented() {
         return carRepository.getAllCarsStatus("Rented").size();
     }
+    public void calculateOverDrivenKm(int vehicleNumber, int kilometersDriven) {
+        List<RentalAgreements> allRentalAgreements = carRepository.getAllRentalAgreements();
+        int maxRentalId = carRepository.getMaxRentalId(vehicleNumber);
+        int kilometersDrivenCustomer = 0;
+        int kilometersOverDriven = 0;
+        for (Car car : carRepository.getAllCars()) {
+            if (car.getVehicleNumber() == vehicleNumber) {
+                kilometersDrivenCustomer = kilometersDriven - car.getTotalKilometersDriven();
+            }
+        }
 
-    public int getRecentRentalId(int rentalId) {
-        return rentalId;
+        for (RentalAgreements rentalAgreements : allRentalAgreements) {
+            if (rentalAgreements.getRentalId() == maxRentalId) {
+                kilometersOverDriven = kilometersDrivenCustomer - (rentalAgreements.getMonthsRented() * rentalAgreements.getKilometerPerMonth());
+                if (kilometersOverDriven < 0)
+                    kilometersOverDriven = 0;
+
+                carRepository.updateIsOverTraveled(kilometersOverDriven, maxRentalId);
+            }
+        }
+        calculateOverdrivenCost(kilometersOverDriven, maxRentalId);
+
     }
+
+    public void calculateOverdrivenCost(int kilometersOverdriven, int maxRentalId) {
+        double totalOverdrivenCost = kilometersOverdriven * OVERDRIVEN_COST;
+
+        carRepository.updateOverdrivenCost(totalOverdrivenCost, maxRentalId);
+    }
+
+
+
 
 }

@@ -5,16 +5,26 @@ public class RentalAgreements {
     private int rentalId;
     private int monthsRented;
     private int kilometerPerMonth;
-    private boolean isOverTraveled;
+    private int kilometersOverDriven;
     private String frameNumber;
     private int vehicleNumber;
     private double overdrivenCost;
 
-    public RentalAgreements(int rentalId, int monthsRented, int kilometerPerMonth, boolean isOverTraveled, String frameNumber, int vehicleNumber) {
+    public RentalAgreements(int rentalId, int monthsRented, int kilometerPerMonth, int kilometersOverDriven, String frameNumber, int vehicleNumber, double overdrivenCost) {
         this.rentalId = rentalId;
         this.monthsRented = monthsRented;
         this.kilometerPerMonth = kilometerPerMonth;
-        this.isOverTraveled = isOverTraveled;
+        this.kilometersOverDriven = kilometersOverDriven;
+        this.frameNumber = frameNumber;
+        this.vehicleNumber = vehicleNumber;
+        this.overdrivenCost = overdrivenCost;
+    }
+
+    public RentalAgreements(int rentalId, int monthsRented, int kilometerPerMonth, int kilometersOverDriven, String frameNumber, int vehicleNumber) {
+        this.rentalId = rentalId;
+        this.monthsRented = monthsRented;
+        this.kilometerPerMonth = kilometerPerMonth;
+        this.kilometersOverDriven = kilometersOverDriven;
         this.frameNumber = frameNumber;
         this.vehicleNumber = vehicleNumber;
     }
@@ -62,12 +72,12 @@ public class RentalAgreements {
         this.vehicleNumber = vehicleNumber;
     }
 
-    public boolean isOverTraveled() {
-        return isOverTraveled;
+    public int getKilometersOverDriven() {
+        return kilometersOverDriven;
     }
 
-    public void setOverTraveled(boolean overTraveled) {
-        isOverTraveled = overTraveled;
+    public void setKilometersOverDriven(int kilometersOverDriven) {
+        kilometersOverDriven = kilometersOverDriven;
     }
 
     public double getOverdrivenCost() {

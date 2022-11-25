@@ -8,9 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+
 
 public class CarRepository {
 
@@ -104,8 +103,8 @@ public class CarRepository {
 
     public void updateIsOverTraveled(int kilometersOverdriven, int rentalId) {
         try {
-            pst = conn.prepareStatement("update rentalagreements set isOverTraveled = ? where rentalId = ?");
-            pst.setBoolean(1, isOverTraveled);
+            pst = conn.prepareStatement("update rentalagreements set kilometersOverdriven = ? where rentalId = ?");
+            pst.setInt(1, kilometersOverdriven);
             pst.setInt(2, rentalId);
 
             pst.executeUpdate();
