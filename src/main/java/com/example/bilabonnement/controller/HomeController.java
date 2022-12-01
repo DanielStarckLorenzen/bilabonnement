@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -157,6 +158,22 @@ public class HomeController {
         repository.createRentalAgreement(chosenCar, monthsRented, kilometers);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/showListOfCarData")
+    public String showListOfCars(@RequestParam String status, Model model) {
+        List<Car> cars = new ArrayList<>();
+
+        //Ikke nødvendigt at bruge service, da de virker redundant...
+        switch (status) {
+            case "onStock" -> cars = repository.getAllCarsStatus(onStock);
+            case "allCars" -> cars = allCars;
+            case "damaged" -> cars = repository.getAllCarsStatus(damaged);
+            case "rented" -> cars = repository.getAllCarsStatus(rented);
+        }
+        model.addAttribute("cars", cars);
+
+        return "showListOfCarData";
     }
 
 

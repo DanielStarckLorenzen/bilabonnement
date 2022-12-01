@@ -42,26 +42,26 @@
 
 
 <div class="row justify-content-end" id="statusBoxes">
-    <div id="statusBox1" class="card">
+    <div id="statusBox1" class="card" onclick="location.href='/showListOfCarData?status=allCars'">
         <div class="card-body">
         <h2 class="card-title" th:text="${allCars}"></h2>
         <h6 class="card-subtitle">Alle biler</h6>
 
     </div>
     </div>
-    <div id="statusBox2" class="card">
+    <div id="statusBox2" class="card" onclick="location.href='/showListOfCarData?status=onStock'">
         <div class="card-body">
             <h2 class="card-title" th:text="${carsOnStock}"></h2>
             <h6 class="card-subtitle">Biler på lager</h6>
         </div>
     </div>
-    <div id="statusBox3" class="card">
+    <div id="statusBox3" class="card" onclick="location.href='/showListOfCarData?status=rented'">
         <div class="card-body">
             <h2 class="card-title" th:text="${carsRented}"></h2>
             <h6 class="card-subtitle">Biler lejet ud</h6>
         </div>
     </div>
-    <div id="statusBox4" class="card">
+    <div id="statusBox4" class="card" onclick="location.href='/showListOfCarData?status=damaged'">
         <div class="card-body">
             <h2 class="card-title" th:text="${carsDamaged}"></h2>
             <h6  class="card-subtitle">Biler til reparation</h6>
