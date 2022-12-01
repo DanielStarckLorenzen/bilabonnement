@@ -31,6 +31,22 @@
     margin: 10px;
 }
 
+#setUpAgreementCard {
+    width: 90%;
+    margin: 8px;
+}
+
+.textBoxes {
+    position: relative;
+    left: 30%;
+    width: 70%;
+}
+
+#submitButton {
+    position: relative;
+    left: 30%;
+}
+
 .carStatusTable {
     width: 100%;
 }
@@ -41,6 +57,10 @@
 
 #businessBoxes {
     width: 85%;
+}
+
+#showCarCard {
+    width: 100%;
 }
 
 #carsRentedCard {

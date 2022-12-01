@@ -16,6 +16,8 @@
 
 </div>
 
+<div class="row justify-content-center" id="showCarCard">
+    <div class="card" id="setUpAgreementCard">
 <div id="selectPrices">
     <form method="POST" action="/registrerAgreement">
         <table class="table" id="monthsPrice">
@@ -32,7 +34,7 @@
             <tr><td>24 mdr.</td><td th:text="${chosenCar.getMonthsPrice24()}"></td><td><input type="checkbox" name="monthsRented" value="24"></td></tr>
             <tr><td>36 mdr.</td><td th:text="${chosenCar.getMonthsPrice36()}"></td><td><input type="checkbox" name="monthsRented" value="36"></td></tr>
         </table>
-    <br><br>
+<br>
         <table class="table" id="kilometersPrice">
             <thead>
             <tr>
@@ -50,9 +52,13 @@
             <tr><td>4.000 km.</td><td th:text="${kilometersPrice.get('4.000 km.')}"></td><td><input type="checkbox" name="kilometers" value="4000"></td></tr>
             <tr><td>4.500 km.</td><td th:text="${kilometersPrice.get('4.500 km.')}"></td><td><input type="checkbox" name="kilometers" value="4500"></td></tr>
         </table>
+
         <button type="submit" class="btn btn-outline-success">Bekræft!</button>
         <input type="hidden" th:value="${chosenCar.getVehicleNumber()}" name="vehicleNumber">
     </form>
+    <br>
+</div>
+</div>
 </div>
 </body>
 </html>

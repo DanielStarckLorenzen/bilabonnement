@@ -22,22 +22,25 @@
     </ul>
 </div>
 <br>
+<br>
+<br>
 <form method="post" action="/createDamageReport">
+<div class="textBoxes">
 <div class="input-group w-50">
         <span class="input-group-text">Beskriv skaderne</span>
         <textarea class="form-control" aria-label="With textarea" name="problem"></textarea>
 </div>
 <br>
 <div class="input-group mb-2 w-50">
-
     <span class="input-group-text">Samlede pris for skaderne</span>
     <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" name="costs">
     <span class="input-group-text">DKK</span>
 
 
 </div>
+</div>
     <br>
-    <button type="submit" class="btn btn-outline-success">Bekræft!</button>
+    <button type="submit" class="btn btn-outline-success" id="submitButton">Bekræft!</button>
     <input type="hidden" th:value="${damagedCar.getVehicleNumber()}" name="damagedCar">
 </form>
 </body>
