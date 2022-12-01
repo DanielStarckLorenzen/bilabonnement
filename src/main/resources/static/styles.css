@@ -1,0 +1,158 @@
+#sidebar {
+    width: 240px;
+    position: fixed;
+    height: 100vh;
+    border: solid black 1px;
+    top: 0;
+}
+
+.card {
+    width: 14rem;
+    margin: 30px;
+    color: white;
+}
+
+#statusBoxes {
+
+    width: 97%;
+}
+
+.card-title {
+    text-align: center;
+}
+.card-subtitle {
+    text-align: center;
+}
+
+#statusBox1 {
+    background-color: #428bca;
+    border: solid #428bca 1px;
+}
+
+#statusBox2 {
+    background-color: #5cb85c;
+    border: solid #5cb85c 1px;
+}
+
+#statusBox3 {
+    background-color: #f0ad4e;
+    border: solid #f0ad4e 1px;
+}
+
+#statusBox4 {
+    background-color: #d9534f;
+    border: solid #d9534f 1px;
+}
+
+
+
+
+/*
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.title {
+    display: block;
+    line-height: 60px;
+    margin: 0;
+    text-align: center;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.horizontal-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+    .horizontal-list li {
+        float: left;
+    }
+        .block {
+            margin: 25px 25px 0 0;
+            background: #394264;
+            border-radius: 5px;
+            float: left;
+            width: 300px;
+            overflow: hidden;
+        }
+
+        .donut-chart-block {
+            overflow: hidden;
+        }
+            .donut-chart-block .title {
+                padding: 10px 0;
+            }
+            .cars-status-percentage li {
+                width: 75px;
+                border-left: 1px solid #394264;
+                text-align: center;
+                background: #50597b;
+            }
+                .status {
+                    margin: 0;
+                    padding: 10px 0 5px;
+                    font-size: 15px;
+                }
+                    .status.rented {
+                        border-top: 4px solid #fcb150;
+                    }
+                    .status.onStock {
+                        border-top: 4px solid #11a8ab;
+                    }
+                    .status.damaged {
+                        border-top: 4px solid #e64c65;
+                    }
+                .cars-status-percentage {
+                    margin: 0;
+                    padding: 0 0 15px 10px;
+                    font-size: 25px;
+                }
+.donut-chart {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 2rem;
+    border-radius: 100%;
+}
+.profile {
+    border-radius: 50%;
+    clip: rect(0px, 200px, 200px, 100px);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+.status {
+    border-radius: 50%;
+    clip: rect(0px, 100px, 200px, 0px);
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    font-family: monospace;
+    font-size: 1.5rem;
+}
+#portion1 {
+    transform: rotate(0deg);
+}
+#portion1 .status {
+    background-color: #fcb150;
+    transform: rotate(120deg);
+}
+#portion2 {
+    transform: rotate(120deg);
+}
+#portion2 .status:after {
+    background-color: #11a8ab;
+    transform: rotate(120deg);
+}
+#portion3 {
+    transform: rotate(240deg);
+}
+#portion3 .status {
+    background-color: #e64c65;
+    transform: rotate(120deg);
+}
+*/

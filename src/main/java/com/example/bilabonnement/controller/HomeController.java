@@ -1,9 +1,7 @@
 package com.example.bilabonnement.controller;
 
 import com.example.bilabonnement.model.Car;
-import com.example.bilabonnement.model.RentalAgreements;
 import com.example.bilabonnement.repository.CarRepository;
-import com.example.bilabonnement.repository.DatabaseManager;
 
 import com.example.bilabonnement.service.CarService;
 import org.springframework.stereotype.Controller;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
-import java.sql.Connection;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,7 +29,12 @@ public class HomeController {
 
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("allCars", carService.amountOfCars());
+        model.addAttribute("carsOnStock", carService.amountOfCarsOnStock());
+        model.addAttribute("carsRented", carService.amountOfCarsRented());
+        model.addAttribute("carsDamaged", carService.amountOfCarsDamaged());
+
         return "index";
     }
     @GetMapping("/dataRegistration")
@@ -108,6 +110,8 @@ public class HomeController {
     public String seeDataOverview(Model model) {
         model.addAttribute("totalSumOfRentedCars", carService.totalSumOfRentedCars());
         model.addAttribute("amountOfCarsRented", carService.amountOfCarsRented());
+        model.addAttribute("amountOfCarsOnStock", carService.amountOfCarsOnStock());
+        model.addAttribute("amountOfCarsDamaged", carService.amountOfCarsDamaged());
 
         return "businessData";
     }

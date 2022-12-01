@@ -9,6 +9,10 @@ import java.util.*;
 
 public class CarService {
 
+    private String onStock = "OnStock";
+    private String rented = "Rented";
+    private String damaged = "Damaged";
+
     private final double OVERDRIVEN_COST = 0.75;
 
     private CarRepository carRepository = new CarRepository();
@@ -62,6 +66,21 @@ public class CarService {
         return sum;
     }
 
+    public int amountOfCars() {
+        return carRepository.getAllCars().size();
+    }
+    public int amountOfCarsDamaged() {
+        return carRepository.getAllCarsStatus(damaged).size();
+    }
+
+    public int amountOfCarsOnStock() {
+        return carRepository.getAllCarsStatus(onStock).size();
+    }
+
+    public int amountOfCarsRented() {
+        return carRepository.getAllCarsStatus(rented).size();
+    }
+
     public int totalSumOfRentedCars() {
         List<Car> rentedCars = carRepository.getAllCarsStatus("Rented");
 
@@ -72,10 +91,6 @@ public class CarService {
         }
 
         return totalSum;
-    }
-
-    public int amountOfCarsRented() {
-        return carRepository.getAllCarsStatus("Rented").size();
     }
     public void calculateOverDrivenKm(int vehicleNumber, int kilometersDriven) {
         List<RentalAgreements> allRentalAgreements = carRepository.getAllRentalAgreements();
