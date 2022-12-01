@@ -30,38 +30,38 @@
 </nav>
 -->
 
-<div class="d-flex flex-column flex-shrink-0 p-3 bg-light" id="sidebar">
+<div class="d-flex flex-column flex-shrink-0 p-3" id="sidebar">
     <h1><i class="bi bi-car-front width d-flex p-3" id="bil-logo"></i></h1>
     <ul class="nav nav-pills flex-column mb-auto">
-        <li><a href="/" class="nav-link link-dark"><i class="bi bi-house"></i>  Hjem</a></li>
-        <li><a href="/dataRegistration" class="nav-link link-dark"><i class="bi bi-clipboard-data"></i>  Data registrering</a></li>
-        <li><a href="/damageRegistration" class="nav-link link-dark"><i class="bi bi-bandaid"></i>  Skade registrering</a></li>
-        <li><a href="/businessData" class="nav-link link-dark"><i class="bi bi-cash-coin"></i>  Forretningsdata</a></li>
+        <li><a href="/" class="nav-link link-light"><i class="bi bi-house"></i>  Hjem</a></li>
+        <li><a href="/dataRegistration" class="nav-link link-light"><i class="bi bi-clipboard-data"></i>  Data registrering</a></li>
+        <li><a href="/damageRegistration" class="nav-link link-light"><i class="bi bi-bandaid"></i>  Skade registrering</a></li>
+        <li><a href="/businessData" class="nav-link link-light"><i class="bi bi-cash-coin"></i>  Forretningsdata</a></li>
     </ul>
 </div>
 
 
 <div class="row justify-content-end" id="statusBoxes">
-    <div id="statusBox1" class="card" onclick="location.href='/showListOfCarData?status=allCars'">
+    <div id="statusBox1" class="card statusBox" onclick="location.href='/showListOfCarData?status=allCars'">
         <div class="card-body">
         <h2 class="card-title" th:text="${allCars}"></h2>
         <h6 class="card-subtitle">Alle biler</h6>
 
     </div>
     </div>
-    <div id="statusBox2" class="card" onclick="location.href='/showListOfCarData?status=onStock'">
+    <div id="statusBox2" class="card statusBox" onclick="location.href='/showListOfCarData?status=onStock'">
         <div class="card-body">
             <h2 class="card-title" th:text="${carsOnStock}"></h2>
             <h6 class="card-subtitle">Biler på lager</h6>
         </div>
     </div>
-    <div id="statusBox3" class="card" onclick="location.href='/showListOfCarData?status=rented'">
+    <div id="statusBox3" class="card statusBox" onclick="location.href='/showListOfCarData?status=rented'">
         <div class="card-body">
             <h2 class="card-title" th:text="${carsRented}"></h2>
             <h6 class="card-subtitle">Biler lejet ud</h6>
         </div>
     </div>
-    <div id="statusBox4" class="card" onclick="location.href='/showListOfCarData?status=damaged'">
+    <div id="statusBox4" class="card statusBox" onclick="location.href='/showListOfCarData?status=damaged'">
         <div class="card-body">
             <h2 class="card-title" th:text="${carsDamaged}"></h2>
             <h6  class="card-subtitle">Biler til reparation</h6>

@@ -15,16 +15,27 @@
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" id="sidebar">
     <h1><i class="bi bi-car-front width d-flex p-3" id="bil-logo"></i></h1>
     <ul class="nav nav-pills flex-column mb-auto">
-        <li><a href="/" class="nav-link link-dark"><i class="bi bi-house"></i>  Hjem</a></li>
-        <li><a href="/dataRegistration" class="nav-link link-dark"><i class="bi bi-clipboard-data"></i>  Data registrering</a></li>
-        <li><a href="/damageRegistration" class="nav-link link-dark"><i class="bi bi-bandaid"></i>  Skade registrering</a></li>
-        <li><a href="/businessData" class="nav-link link-dark"><i class="bi bi-cash-coin"></i>  Forretningsdata</a></li>
+        <li><a href="/" class="nav-link link-light"><i class="bi bi-house"></i>  Hjem</a></li>
+        <li><a href="/dataRegistration" class="nav-link link-light"><i class="bi bi-clipboard-data"></i>  Data registrering</a></li>
+        <li><a href="/damageRegistration" class="nav-link link-light"><i class="bi bi-bandaid"></i>  Skade registrering</a></li>
+        <li><a href="/businessData" class="nav-link link-light"><i class="bi bi-cash-coin"></i>  Forretningsdata</a></li>
     </ul>
 </div>
-<br>
-<h1 th:text="${totalSumOfRentedCars}"></h1> <br>
-<h1 th:text="${amountOfCarsRented}"></h1>
-<br>
+
+<div class="row justify-content-end" id="businessBoxes">
+    <div class="card moneyBox" id="moneyCard">
+        <div class="card-body">
+            <h2 class="card-title" th:text="${totalSumOfRentedCars}"></h2>
+            <h6 class="card-subtitle">Sum af biler udlånt i DKK</h6>
+        </div>
+    </div>
+    <div class="card moneyBox" id="carsRentedCard">
+        <div class="card-body">
+            <h2 class="card-title" th:text="${amountOfCarsRented}"></h2>
+            <h6 class="card-subtitle">Antal biler lejet ud</h6>
+        </div>
+    </div>
+</div>
 
 
 

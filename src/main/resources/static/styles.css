@@ -2,19 +2,55 @@
     width: 240px;
     position: fixed;
     height: 100vh;
-    border: solid black 1px;
+    border-right: solid #54649e 1px;
     top: 0;
-}
-
-.card {
-    width: 14rem;
-    margin: 30px;
+    background-color: #54649e;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
     color: white;
 }
 
-#statusBoxes {
+.statusBox {
+    width: 14rem;
+    margin: 30px;
+    color: white;
+    cursor: pointer;
+}
 
+.moneyBox {
+    width: 16rem;
+    height: 8rem;
+    margin: 70px;
+    color: white;
+    cursor: pointer;
+}
+
+.dataTables {
+    width: 80%;
+    position: relative;
+    margin: 10px;
+}
+
+.carStatusTable {
+    width: 100%;
+}
+
+#statusBoxes {
     width: 97%;
+}
+
+#businessBoxes {
+    width: 85%;
+}
+
+#carsRentedCard {
+    background-color: #428bca;
+    border: solid #428bca 1px;
+}
+
+#moneyCard {
+    background-color: #5cb85c;
+    border: solid #5cb85c 1px;
 }
 
 .card-title {

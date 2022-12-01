@@ -15,13 +15,17 @@
 <div class="d-flex flex-column flex-shrink-0 p-3 bg-light" id="sidebar">
     <h1><i class="bi bi-car-front width d-flex p-3" id="bil-logo"></i></h1>
     <ul class="nav nav-pills flex-column mb-auto">
-        <li><a href="/" class="nav-link link-dark"><i class="bi bi-house"></i>  Hjem</a></li>
-        <li><a href="/dataRegistration" class="nav-link link-dark"><i class="bi bi-clipboard-data"></i>  Data registrering</a></li>
-        <li><a href="/damageRegistration" class="nav-link link-dark"><i class="bi bi-bandaid"></i>  Skade registrering</a></li>
-        <li><a href="/businessData" class="nav-link link-dark"><i class="bi bi-cash-coin"></i>  Forretningsdata</a></li>
+        <li><a href="/" class="nav-link link-light"><i class="bi bi-house"></i>  Hjem</a></li>
+        <li><a href="/dataRegistration" class="nav-link link-light"><i class="bi bi-clipboard-data"></i>  Data registrering</a></li>
+        <li><a href="/damageRegistration" class="nav-link link-light"><i class="bi bi-bandaid"></i>  Skade registrering</a></li>
+        <li><a href="/businessData" class="nav-link link-light"><i class="bi bi-cash-coin"></i>  Forretningsdata</a></li>
     </ul>
 </div>
 <br>
+
+
+<div class="row justify-content-end carStatusTable">
+<div class="card dataTables">
 <table class="table" id="carsReadyToBeRented">
     <thead>
         <tr>
@@ -47,7 +51,14 @@
         </tr>
     </tbody>
 </table>
-<br><br>
+</div>
+</div>
+
+
+
+
+<div class="row justify-content-end carStatusTable">
+<div class="card dataTables">
 <table class="table" id="carsRentedOut">
     <thead>
     <tr>
@@ -75,5 +86,7 @@
     </tr>
     </tbody>
 </table>
+</div>
+</div>
 </body>
 </html>
