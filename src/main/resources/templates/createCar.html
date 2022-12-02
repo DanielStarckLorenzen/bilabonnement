@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Opret ny bil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="../static/styles.css" th:href="@{styles.css}">
+</head>
+<body>
+<div>
+    <form action="/carCreated" method="post">
+        <div class="input-group w50">
+        <span class="input-group-text">Stelnummer</span>
+        <input type="text" class="form-control" name="frameNumber">
+        </div>
+
+        <div class="input-group w50">
+            <span class="input-group-text">Model</span>
+            <input type="text" class="form-control" name="model">
+        </div>
+
+        <div class="input-group w50">
+            <span class="input-group-text">Mærke</span>
+            <input type="text" class="form-control" name="manufacturer">
+        </div>
+
+        <!-- isManual -->
+        <div class="form-check form-switch">
+            <label class="form-check-label">Manuelt Gear</label>
+            <input type="checkbox" class="form-check-input" name="isManual">
+        </div>
+
+        <div class="input-group w50">
+            <span class="input-group-text">Tilbehør</span>
+            <input type="text" class="form-control" name="accessories">
+        </div>
+
+        <div class="input-group w50">
+            <span class="input-group-text">CO2 udledning</span>
+            <input type="number" class="form-control" name="CO2discharge">
+        </div>
+
+        <div class="input-group w50">
+            <span class="input-group-text">Pris for 3 måneder</span>
+            <input type="number" class="form-control" name="3months">
+        </div>
+
+        <div class="input-group w50">
+            <span class="input-group-text">Pris for 6 måneder</span>
+            <input type="number" class="form-control" name="6months">
+        </div>
+
+        <div class="input-group w50">
+            <span class="input-group-text">Pris for 12 måneder</span>
+            <input type="number" class="form-control" name="12months">
+        </div>
+
+        <div class="input-group w50">
+            <span class="input-group-text">Pris for 24 måneder</span>
+            <input type="number" class="form-control" name="24months">
+        </div>
+
+        <div class="input-group w50">
+            <span class="input-group-text">Pris for 36 måneder</span>
+            <input type="number" class="form-control" name="36months">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-outline-success">Opret!</button>
+    </form>
+</div>
+
+</body>
+</html>

@@ -114,6 +114,30 @@ public class CarRepository {
         }
     }
 
+    public void createCar(Car car) {
+        try {
+            pst = conn.prepareStatement("insert into car (frameNumber, model, manufacturer, isManual, accessories, CO2discharge, status, `3MonthsPrice`, `6MonthsPrice`, `12MonthsPrice`, `24MonthsPrice`, `36MonthsPrice`, totalKilometersDriven)" +
+                    " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            pst.setString(1, car.getFrameNumber());
+            pst.setString(2, car.getModel());
+            pst.setString(3, car.getManufacturer());
+            pst.setBoolean(4, car.isManual());
+            pst.setString(5, car.getAccessories());
+            pst.setDouble(6,car.getCO2discharge());
+            pst.setString(7, car.getStatus());
+            pst.setInt(8, car.getMonthsPrice3());
+            pst.setInt(9, car.getMonthsPrice6());
+            pst.setInt(10, car.getMonthsPrice12());
+            pst.setInt(11, car.getMonthsPrice24());
+            pst.setInt(12, car.getMonthsPrice36());
+            pst.setInt(13, car.getTotalKilometersDriven());
+
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public void createRentalAgreement (Car car, int monthsRented, int kilometersPerMonth) {
         String frameNumber = car.getFrameNumber();
         int vehicleNumber = car.getVehicleNumber();

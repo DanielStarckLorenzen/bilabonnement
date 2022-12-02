@@ -59,7 +59,7 @@ public class HomeController {
 
     @GetMapping("/damageRegistration")
     public String registerDamages(Model model){
-        model.addAttribute("allCars", allCars);
+        model.addAttribute("allCars", repository.getAllCars());
         model.addAttribute("damagedCars", repository.getAllCarsStatus(damaged));
         model.addAttribute("carsOnStock", repository.getAllCarsStatus(onStock));
 
@@ -73,7 +73,7 @@ public class HomeController {
 
         Car damagedCar = new Car();
 
-        for (Car car : allCars) {
+        for (Car car : repository.getAllCars()) {
             if (vehicleNumber == car.getVehicleNumber()) {
                 damagedCar = car;
             }
@@ -87,7 +87,7 @@ public class HomeController {
     public String createDamageReport(WebRequest dataFromForm) {
         int damagedCarNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("damagedCar")));
         Car damagedCar = new Car();
-        for (Car car : allCars) {
+        for (Car car : repository.getAllCars()) {
             if (damagedCarNumber == car.getVehicleNumber()) {
                 damagedCar = car;
             }
@@ -129,7 +129,7 @@ public class HomeController {
         System.out.println(carModel);
 
         Car chosenCar = null;
-        for (Car car : allCars) {
+        for (Car car : repository.getAllCars()) {
             if (car.getModel().equals(carModel)) {
                 chosenCar = car;
             }
@@ -149,7 +149,7 @@ public class HomeController {
 
         Car chosenCar = null;
 
-        for (Car car : allCars) {
+        for (Car car : repository.getAllCars()) {
             if (car.getVehicleNumber() == vehicleNumber) {
                 chosenCar = car;
             }
@@ -167,7 +167,7 @@ public class HomeController {
         //Ikke nødvendigt at bruge service, da de virker redundant...
         switch (status) {
             case "onStock" -> cars = repository.getAllCarsStatus(onStock);
-            case "allCars" -> cars = allCars;
+            case "allCars" -> cars = repository.getAllCars();
             case "damaged" -> cars = repository.getAllCarsStatus(damaged);
             case "rented" -> cars = repository.getAllCarsStatus(rented);
         }
@@ -176,5 +176,27 @@ public class HomeController {
         return "showListOfCarData";
     }
 
+    @GetMapping("/createCar")
+    public String carCreationSite() {
+        return "createCar";
+    }
 
+    @PostMapping("/carCreated")
+    public String createCar(WebRequest dataFromForm) {
+        String frameNumber = dataFromForm.getParameter("frameNumber");
+        String model = dataFromForm.getParameter("model");
+        String manufacturer = dataFromForm.getParameter("manufacturer");
+        boolean isManual = Boolean.parseBoolean(dataFromForm.getParameter("isManual"));
+        String accessories = dataFromForm.getParameter("accessories");
+        int co2Discharge = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("CO2discharge")));
+        int monthsPrice3 = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("3months")));
+        int monthsPrice6 = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("6months")));
+        int monthsPrice12 = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("12months")));
+        int monthsPrice24 = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("24months")));
+        int monthsPrice36 = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("36months")));
+
+        repository.createCar(new Car(frameNumber, model, manufacturer, isManual, accessories, co2Discharge, onStock, monthsPrice3, monthsPrice6, monthsPrice12, monthsPrice24, monthsPrice36, 0));
+
+        return "redirect:/";
+    }
 }

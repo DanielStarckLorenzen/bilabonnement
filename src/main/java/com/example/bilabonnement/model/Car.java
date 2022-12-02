@@ -36,6 +36,22 @@ public class Car {
         this.totalKilometersDriven = totalKilometersDriven;
     }
 
+    public Car(String frameNumber, String model, String manufacturer, boolean isManual, String accessories, double CO2discharge, String status, int monthsPrice3, int monthsPrice6, int monthsPrice12, int monthsPrice24, int monthsPrice36, int totalKilometersDriven) {
+        this.frameNumber = frameNumber;
+        this.model = model;
+        this.manufacturer = manufacturer;
+        this.isManual = isManual;
+        this.accessories = accessories;
+        this.CO2discharge = CO2discharge;
+        this.status = status;
+        this.monthsPrice3 = monthsPrice3;
+        this.monthsPrice6 = monthsPrice6;
+        this.monthsPrice12 = monthsPrice12;
+        this.monthsPrice24 = monthsPrice24;
+        this.monthsPrice36 = monthsPrice36;
+        this.totalKilometersDriven = totalKilometersDriven;
+    }
+
     public Car() {
     }
 
