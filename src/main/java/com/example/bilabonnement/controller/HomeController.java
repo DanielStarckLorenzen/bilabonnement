@@ -26,7 +26,6 @@ public class HomeController {
     private CarRepository repository = new CarRepository();
     private CarService carService = new CarService();
     private Car car = new Car();
-    private List<Car> allCars = repository.getAllCars();
 
 
     @GetMapping("/")
