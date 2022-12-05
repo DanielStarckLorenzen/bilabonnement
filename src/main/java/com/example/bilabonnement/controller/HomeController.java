@@ -160,7 +160,7 @@ public class HomeController {
             }
         }
 
-        repository.createRentalAgreement(chosenCar, monthsRented, kilometers);
+        repository.createRentalAgreement(chosenCar, monthsRented, kilometers, customerName);
 
         return "redirect:/";
     }

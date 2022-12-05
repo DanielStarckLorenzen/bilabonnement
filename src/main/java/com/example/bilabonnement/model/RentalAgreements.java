@@ -12,7 +12,7 @@ public class RentalAgreements {
 
     private String customerName;
 
-    public RentalAgreements(int rentalId, int monthsRented, int kilometerPerMonth, int kilometersOverDriven, String frameNumber, int vehicleNumber, double overdrivenCost) {
+    public RentalAgreements(int rentalId, int monthsRented, int kilometerPerMonth, int kilometersOverDriven, String frameNumber, int vehicleNumber, double overdrivenCost, String customerName) {
         this.rentalId = rentalId;
         this.monthsRented = monthsRented;
         this.kilometerPerMonth = kilometerPerMonth;
@@ -20,6 +20,7 @@ public class RentalAgreements {
         this.frameNumber = frameNumber;
         this.vehicleNumber = vehicleNumber;
         this.overdrivenCost = overdrivenCost;
+        this.customerName = customerName;
     }
 
     public RentalAgreements(int rentalId, int monthsRented, int kilometerPerMonth, int kilometersOverDriven, String customerName, String frameNumber, int vehicleNumber) {

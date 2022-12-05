@@ -138,15 +138,16 @@ public class CarRepository {
         }
     }
 
-    public void createRentalAgreement (Car car, int monthsRented, int kilometersPerMonth) {
+    public void createRentalAgreement (Car car, int monthsRented, int kilometersPerMonth, String customerName) {
         String frameNumber = car.getFrameNumber();
         int vehicleNumber = car.getVehicleNumber();
         try {
-            pst = conn.prepareStatement("insert into rentalagreements (monthsRented, kilometerPerMonth, frameNumber, vehicleNumber) values(?, ?, ?, ?) ");
+            pst = conn.prepareStatement("insert into rentalagreements (monthsRented, kilometerPerMonth, frameNumber, vehicleNumber, customerName) values(?, ?, ?, ?, ?) ");
             pst.setInt(1,monthsRented);
             pst.setInt(2, kilometersPerMonth);
             pst.setString(3,frameNumber);
             pst.setInt(4, vehicleNumber);
+            pst.setString(5, customerName);
 
             pst.executeUpdate();
 
