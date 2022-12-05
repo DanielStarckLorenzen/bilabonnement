@@ -122,6 +122,21 @@ public class CarService {
         carRepository.updateOverdrivenCost(totalOverdrivenCost, maxRentalId);
     }
 
+    public boolean isKilometersDrivenNowHigher(int vehicleNumber, int totalKilometersTraveled) {
+
+        for (Car car : carRepository.getAllCarsStatus(rented)) {
+            if (car.getVehicleNumber() == vehicleNumber) {
+                if (car.getTotalKilometersDriven() < totalKilometersTraveled) {
+                    return true;
+                }
+                else return false;
+            }
+        }
+
+
+        return false;
+
+    }
 
 
 

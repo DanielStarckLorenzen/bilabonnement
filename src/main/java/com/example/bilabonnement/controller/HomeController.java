@@ -48,12 +48,17 @@ public class HomeController {
     @PostMapping("/returnCar")
     public String returnCar(WebRequest dataFromForm) {
         int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
-        int totalKilometersTraveled = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("overTraveled")));
+        int totalKilometersTraveled = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("totalKilometersDriven")));
 
-        carService.calculateOverDrivenKm(vehicleNumber, totalKilometersTraveled);
-        repository.changeStatus(onStock, vehicleNumber);
+        if (carService.isKilometersDrivenNowHigher(vehicleNumber, totalKilometersTraveled)) {
+            carService.calculateOverDrivenKm(vehicleNumber, totalKilometersTraveled);
+            repository.changeStatus(onStock, vehicleNumber);
+            repository.updateKilometersDriven(vehicleNumber, totalKilometersTraveled);
+        }
 
         return "redirect:/dataRegistration";
+
+
     }
 
     @GetMapping("/damageRegistration")
@@ -145,6 +150,7 @@ public class HomeController {
         int monthsRented = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("monthsRented")));
         int kilometers = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("kilometers")));
         int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
+        String customerName = dataFromForm.getParameter("customerName");
 
         Car chosenCar = null;
 
@@ -198,4 +204,25 @@ public class HomeController {
 
         return "redirect:/";
     }
+
+    @GetMapping("/sellCarMenu")
+    public String sellCarMenu(Model model) {
+        model.addAttribute("carsOnStock", repository.getAllCarsStatus(onStock));
+        return "sellCar";
+    }
+
+    @PostMapping("/carToBeSold")
+    public String sellingOfCar(WebRequest dataFromForm) {
+        String frameNumber = dataFromForm.getParameter("frameNumber");
+
+        return "redirect:/sellCar?frameNumber=" + frameNumber;
+    }
+
+    @GetMapping("/sellCar")
+    public String sellCar(@RequestParam String frameNumber) {
+        repository.removeCar(frameNumber);
+
+        return "redirect:/";
+    }
+
 }

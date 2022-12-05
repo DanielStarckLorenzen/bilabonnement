@@ -169,6 +169,7 @@ public class CarRepository {
                         resultSet.getInt("monthsRented"),
                         resultSet.getInt("kilometerPerMonth"),
                         resultSet.getInt("kilometersOverdriven"),
+                        resultSet.getString("customerName"),
                         resultSet.getString("frameNumber"),
                         resultSet.getInt("vehicleNumber")
                 );
@@ -213,7 +214,8 @@ public class CarRepository {
                         resultSet.getInt("kilometersOverDriven"),
                         resultSet.getString("frameNumber"),
                         resultSet.getInt("vehicleNumber"),
-                        resultSet.getDouble("overdrivenCost")
+                        resultSet.getDouble("overdrivenCost"),
+                        resultSet.getString("customerName")
                 ));
             }
 
@@ -247,6 +249,28 @@ public class CarRepository {
 
             pst.executeUpdate();
         } catch(SQLException e){
+            System.out.println(e);
+        }
+    }
+
+    public void removeCar(String frameNumber) {
+        try {
+            pst = conn.prepareStatement("delete from car where frameNumber = ?");
+            pst.setString(1, frameNumber);
+
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void updateKilometersDriven(int vehicleNumber, int totalKilometersDriven) {
+        try{
+            pst = conn.prepareStatement("update car set totalKilometersDriven = ? where vehicleNumber = ?");
+            pst.setInt(1, totalKilometersDriven);
+            pst.setInt(2, vehicleNumber);
+            pst.executeUpdate();
+        } catch (SQLException e){
             System.out.println(e);
         }
     }

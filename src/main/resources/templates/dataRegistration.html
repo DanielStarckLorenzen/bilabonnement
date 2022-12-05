@@ -69,7 +69,8 @@
         <th scope="col">Manuelt gear</th>
         <th scope="col">CO2 udledning</th>
         <th scope="col">Stel-nummer</th>
-        <th scope="col">Kørte kilometer</th>
+        <th scope="col">Kørte kilometer før</th>
+        <th scope="col">Kørte kilometer nu</th>
         <th scope="col">Modtag bil</th>
     </tr>
     </thead>
@@ -80,8 +81,9 @@
         <td th:text="${carRentedOut.isManual}"></td>
         <td th:text="${carRentedOut.CO2discharge}"></td>
         <td th:text="${carRentedOut.frameNumber}"></td>
+        <td th:text="${carRentedOut.totalKilometersDriven}"></td>
         <form id="returnCar" method="post" action="/returnCar">
-            <td> <input type="number" name="overTraveled"></td>
+            <td> <input type="number" name="totalKilometersDriven"></td>
             <td> <input type="submit" name="chooseCar" value="Vælg"></td>
             <input type="hidden" name="vehicleNumber" th:value="${carRentedOut.vehicleNumber}">
         </form>

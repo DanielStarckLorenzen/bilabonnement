@@ -10,6 +10,8 @@ public class RentalAgreements {
     private int vehicleNumber;
     private double overdrivenCost;
 
+    private String customerName;
+
     public RentalAgreements(int rentalId, int monthsRented, int kilometerPerMonth, int kilometersOverDriven, String frameNumber, int vehicleNumber, double overdrivenCost) {
         this.rentalId = rentalId;
         this.monthsRented = monthsRented;
@@ -20,13 +22,14 @@ public class RentalAgreements {
         this.overdrivenCost = overdrivenCost;
     }
 
-    public RentalAgreements(int rentalId, int monthsRented, int kilometerPerMonth, int kilometersOverDriven, String frameNumber, int vehicleNumber) {
+    public RentalAgreements(int rentalId, int monthsRented, int kilometerPerMonth, int kilometersOverDriven, String customerName, String frameNumber, int vehicleNumber) {
         this.rentalId = rentalId;
         this.monthsRented = monthsRented;
         this.kilometerPerMonth = kilometerPerMonth;
         this.kilometersOverDriven = kilometersOverDriven;
         this.frameNumber = frameNumber;
         this.vehicleNumber = vehicleNumber;
+        this.customerName = customerName;
     }
 
     public RentalAgreements() {
@@ -88,6 +91,14 @@ public class RentalAgreements {
         this.overdrivenCost = overdrivenCost;
     }
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
     @Override
     public String toString() {
         return "RentalAgreements{" +
@@ -98,6 +109,7 @@ public class RentalAgreements {
                 ", frameNumber='" + frameNumber + '\'' +
                 ", vehicleNumber=" + vehicleNumber +
                 ", overdrivenCost=" + overdrivenCost +
+                ", customerName='" + customerName + '\'' +
                 '}';
     }
 }

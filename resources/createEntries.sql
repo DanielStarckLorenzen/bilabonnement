@@ -9,3 +9,9 @@ delete from rentalagreements where vehicleNumber = 4;
 delete from rentalagreements where vehicleNumber = 6;
 
 alter table rentalagreements add column overdrivenCost double;
+
+delete from car where vehicleNumber = 8;
+
+alter table rentalagreements add column customerName varchar(50);
+
+delete from rentalagreements where kilometerPerMonth = 1500;

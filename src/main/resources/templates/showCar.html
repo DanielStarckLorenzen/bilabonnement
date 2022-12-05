@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
     <link rel="stylesheet" href="../static/styles.css" th:href="@{styles.css}">
+
+
 </head>
 <body>
 <div id="information">
@@ -52,8 +54,11 @@
             <tr><td>4.000 km.</td><td th:text="${kilometersPrice.get('4.000 km.')}"></td><td><input type="checkbox" name="kilometers" value="4000"></td></tr>
             <tr><td>4.500 km.</td><td th:text="${kilometersPrice.get('4.500 km.')}"></td><td><input type="checkbox" name="kilometers" value="4500"></td></tr>
         </table>
-
-        <button type="submit" class="btn btn-outline-success">Bekræft!</button>
+        <div class="input-group w-25" id="customerNameInput">
+            <label class="input-group-text">Navn på lejer</label>
+            <input type="text" class="form-control" name="customerName">
+        </div>
+        <button type="submit" class="btn btn-outline-success" id="createAgreementBtn">Bekræft!</button>
         <input type="hidden" th:value="${chosenCar.getVehicleNumber()}" name="vehicleNumber">
     </form>
     <br>

@@ -80,6 +80,16 @@
     text-align: center;
 }
 
+#createAgreementBtn {
+    position: relative;
+    left: 26%;
+    bottom: 38px;
+}
+
+#customerNameInput {
+    position: relative;
+}
+
 #statusBox1 {
     background-color: #428bca;
     border: solid #428bca 1px;
