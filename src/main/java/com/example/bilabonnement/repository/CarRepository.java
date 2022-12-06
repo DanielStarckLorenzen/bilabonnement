@@ -7,6 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,7 +80,8 @@ public class CarRepository {
                         resultSet.getInt("12MonthsPrice"),
                         resultSet.getInt("24MonthsPrice"),
                         resultSet.getInt("36MonthsPrice"),
-                        resultSet.getInt("totalKilometersDriven")
+                        resultSet.getInt("totalKilometersDriven"),
+                        resultSet.getString("color")
                 ));
             }
 
@@ -138,11 +141,14 @@ public class CarRepository {
         }
     }
 
-    public void createRentalAgreement (Car car, int monthsRented, int kilometersPerMonth, String customerName) {
+    public void createRentalAgreement (Car car, int monthsRented, int kilometersPerMonth, String customerName, LocalDate startLocalDate, LocalDate endLocalDate) {
         String frameNumber = car.getFrameNumber();
         int vehicleNumber = car.getVehicleNumber();
+        Date startDate = Date.valueOf(startLocalDate);
+        Date endDate = Date.valueOf(endLocalDate);
+
         try {
-            pst = conn.prepareStatement("insert into rentalagreements (monthsRented, kilometerPerMonth, frameNumber, vehicleNumber, customerName) values(?, ?, ?, ?, ?) ");
+            pst = conn.prepareStatement("insert into rentalagreements (monthsRented, kilometerPerMonth, frameNumber, vehicleNumber, customerName, startDate, endDate) values(?, ?, ?, ?, ?, ?, ?) ");
             pst.setInt(1,monthsRented);
             pst.setInt(2, kilometersPerMonth);
             pst.setString(3,frameNumber);
@@ -171,8 +177,10 @@ public class CarRepository {
                         resultSet.getInt("kilometerPerMonth"),
                         resultSet.getInt("kilometersOverdriven"),
                         resultSet.getString("customerName"),
+                        resultSet.getInt("vehicleNumber"),
                         resultSet.getString("frameNumber"),
-                        resultSet.getInt("vehicleNumber")
+                        resultSet.getDate("startDate"),
+                        resultSet.getDate("endDate")
                 );
 
             }
@@ -216,7 +224,9 @@ public class CarRepository {
                         resultSet.getString("frameNumber"),
                         resultSet.getInt("vehicleNumber"),
                         resultSet.getDouble("overdrivenCost"),
-                        resultSet.getString("customerName")
+                        resultSet.getString("customerName"),
+                        resultSet.getDate("startDate"),
+                        resultSet.getDate("endDate")
                 ));
             }
 
@@ -274,6 +284,23 @@ public class CarRepository {
         } catch (SQLException e){
             System.out.println(e);
         }
+    }
+
+    public Date getEndDate(int rentalId) {
+        Date endDate = null;
+        try {
+            pst = conn.prepareStatement("select endDate from rentalagreements where rentalId = ?");
+            pst.setInt(1, rentalId);
+
+            ResultSet resultset = pst.executeQuery();
+
+            if (resultset.next())
+                endDate = resultset.getDate(1);
+
+        } catch (SQLException e){
+            System.out.println(e);
+        }
+       return endDate;
     }
 
 }

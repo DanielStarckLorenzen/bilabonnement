@@ -15,3 +15,7 @@ delete from car where vehicleNumber = 8;
 alter table rentalagreements add column customerName varchar(50);
 
 delete from rentalagreements where kilometerPerMonth = 1500;
+
+alter table car add column color varchar(50);
+
+alter table rentalagreements add column endDate date;

@@ -4,6 +4,7 @@ import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.repository.CarRepository;
 
 import com.example.bilabonnement.service.CarService;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -123,18 +127,18 @@ public class HomeController {
 
     @PostMapping("/setUpAgreement")
     public String setUpAgreement(WebRequest dataFromForm){
-        String carModel = dataFromForm.getParameter("model");
+        String frameNumber = dataFromForm.getParameter("frameNumber");
 
-        return "redirect:/showCar?carModel=" + carModel;
+        return "redirect:/showCar?frameNumber=" + frameNumber;
     }
 
     @GetMapping("/showCar")
-    public String showCar(@RequestParam String carModel, Model model) {
-        System.out.println(carModel);
+    public String showCar(@RequestParam String frameNumber, Model model) {
+        System.out.println(frameNumber);
 
         Car chosenCar = null;
         for (Car car : repository.getAllCars()) {
-            if (car.getModel().equals(carModel)) {
+            if (car.getFrameNumber().equals(frameNumber)) {
                 chosenCar = car;
             }
         }
@@ -150,6 +154,7 @@ public class HomeController {
         int monthsRented = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("monthsRented")));
         int kilometers = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("kilometers")));
         int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
+
         String customerName = dataFromForm.getParameter("customerName");
 
         Car chosenCar = null;
@@ -160,9 +165,19 @@ public class HomeController {
             }
         }
 
-        repository.createRentalAgreement(chosenCar, monthsRented, kilometers, customerName);
 
-        return "redirect:/";
+
+        if (carService.isCarPriceMinusOne(chosenCar, monthsRented)) {
+            return "redirect:/showCar?frameNumber=" + chosenCar.getFrameNumber();
+        } else {
+            String startDateString = dataFromForm.getParameter("startDate");
+            LocalDate startDate = LocalDate.parse(startDateString);
+            LocalDate endDate = carService.endDate(startDate, monthsRented);
+
+            repository.createRentalAgreement(chosenCar, monthsRented, kilometers, customerName, startDate, endDate);
+
+            return "redirect:/";
+        }
     }
 
     @GetMapping("/showListOfCarData")
@@ -177,6 +192,10 @@ public class HomeController {
             case "rented" -> cars = repository.getAllCarsStatus(rented);
         }
         model.addAttribute("cars", cars);
+
+
+        System.out.println(carService.daysLeftToReturn(repository.getEndDate(repository.getMaxRentalId(6))));
+
 
         return "showListOfCarData";
     }

@@ -4,7 +4,11 @@ package com.example.bilabonnement.service;
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.RentalAgreements;
 import com.example.bilabonnement.repository.CarRepository;
+import org.thymeleaf.util.DateUtils;
 
+import java.time.Clock;
+import java.time.Duration;
+import java.time.LocalDate;
 import java.util.*;
 
 public class CarService {

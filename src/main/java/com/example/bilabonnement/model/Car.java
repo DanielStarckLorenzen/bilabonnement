@@ -18,8 +18,9 @@ public class Car {
     private int monthsPrice36;
 
     private int totalKilometersDriven;
+    private String color;
 
-    public Car(int vehicleNumber, String frameNumber, String model, String manufacturer, boolean isManual, String accessories, double CO2discharge, String status, int monthsPrice3, int monthsPrice6, int monthsPrice12, int monthsPrice24, int monthsPrice36, int totalKilometersDriven) {
+    public Car(int vehicleNumber, String frameNumber, String model, String manufacturer, boolean isManual, String accessories, double CO2discharge, String status, int monthsPrice3, int monthsPrice6, int monthsPrice12, int monthsPrice24, int monthsPrice36, int totalKilometersDriven, String color) {
         this.vehicleNumber = vehicleNumber;
         this.frameNumber = frameNumber;
         this.model = model;
@@ -34,9 +35,10 @@ public class Car {
         this.monthsPrice24 = monthsPrice24;
         this.monthsPrice36 = monthsPrice36;
         this.totalKilometersDriven = totalKilometersDriven;
+        this.color = color;
     }
 
-    public Car(String frameNumber, String model, String manufacturer, boolean isManual, String accessories, double CO2discharge, String status, int monthsPrice3, int monthsPrice6, int monthsPrice12, int monthsPrice24, int monthsPrice36, int totalKilometersDriven) {
+    public Car(String frameNumber, String model, String manufacturer, boolean isManual, String accessories, double CO2discharge, String status, int monthsPrice3, int monthsPrice6, int monthsPrice12, int monthsPrice24, int monthsPrice36, int totalKilometersDriven, String color) {
         this.frameNumber = frameNumber;
         this.model = model;
         this.manufacturer = manufacturer;
@@ -50,6 +52,7 @@ public class Car {
         this.monthsPrice24 = monthsPrice24;
         this.monthsPrice36 = monthsPrice36;
         this.totalKilometersDriven = totalKilometersDriven;
+        this.color = color;
     }
 
     public Car() {
@@ -169,6 +172,14 @@ public class Car {
         this.totalKilometersDriven = totalKilometersDriven;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     @Override
     public String toString() {
         return "Car{" +
@@ -186,6 +197,7 @@ public class Car {
                 ", monthsPrice24=" + monthsPrice24 +
                 ", monthsPrice36=" + monthsPrice36 +
                 ", totalKilometersDriven=" + totalKilometersDriven +
+                ", color='" + color + '\'' +
                 '}';
     }
 }

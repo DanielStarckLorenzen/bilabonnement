@@ -1,5 +1,8 @@
 package com.example.bilabonnement.model;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public class RentalAgreements {
 
     private int rentalId;
@@ -11,8 +14,10 @@ public class RentalAgreements {
     private double overdrivenCost;
 
     private String customerName;
+    private Date startDate;
+    private Date endDate;
 
-    public RentalAgreements(int rentalId, int monthsRented, int kilometerPerMonth, int kilometersOverDriven, String frameNumber, int vehicleNumber, double overdrivenCost, String customerName) {
+    public RentalAgreements(int rentalId, int monthsRented, int kilometerPerMonth, int kilometersOverDriven, String frameNumber, int vehicleNumber, double overdrivenCost, String customerName, Date startDate, Date endDate) {
         this.rentalId = rentalId;
         this.monthsRented = monthsRented;
         this.kilometerPerMonth = kilometerPerMonth;
@@ -21,9 +26,11 @@ public class RentalAgreements {
         this.vehicleNumber = vehicleNumber;
         this.overdrivenCost = overdrivenCost;
         this.customerName = customerName;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
 
-    public RentalAgreements(int rentalId, int monthsRented, int kilometerPerMonth, int kilometersOverDriven, String customerName, String frameNumber, int vehicleNumber) {
+    public RentalAgreements(int rentalId, int monthsRented, int kilometerPerMonth, int kilometersOverDriven, String frameNumber, int vehicleNumber, String customerName, Date startDate, Date endDate) {
         this.rentalId = rentalId;
         this.monthsRented = monthsRented;
         this.kilometerPerMonth = kilometerPerMonth;
@@ -31,8 +38,9 @@ public class RentalAgreements {
         this.frameNumber = frameNumber;
         this.vehicleNumber = vehicleNumber;
         this.customerName = customerName;
+        this.startDate = startDate;
+        this.endDate = endDate;
     }
-
     public RentalAgreements() {
     }
 

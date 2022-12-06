@@ -59,6 +59,8 @@
             <input type="text" class="form-control" name="customerName">
         </div>
         <button type="submit" class="btn btn-outline-success" id="createAgreementBtn">Bekræft!</button>
+
+        <input type="date" class="dateStart" name="startDate">
         <input type="hidden" th:value="${chosenCar.getVehicleNumber()}" name="vehicleNumber">
     </form>
     <br>
