@@ -9,6 +9,7 @@ import org.thymeleaf.util.DateUtils;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 public class CarService {
@@ -166,9 +167,9 @@ public class CarService {
 
     public int daysLeftToReturn(Date endDate) {
         LocalDate now = LocalDate.now();
+        Date date = Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        Duration diff = Duration.between(now.atStartOfDay(), endDate.toInstant());
-        long diffDays = diff.toDays();
+        long diffDays = (endDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24);
 
         return (int) diffDays;
 
