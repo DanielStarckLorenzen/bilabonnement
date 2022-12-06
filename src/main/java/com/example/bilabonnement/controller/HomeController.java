@@ -218,8 +218,9 @@ public class HomeController {
         int monthsPrice12 = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("12months")));
         int monthsPrice24 = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("24months")));
         int monthsPrice36 = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("36months")));
+        String color = dataFromForm.getParameter("color");
 
-        repository.createCar(new Car(frameNumber, model, manufacturer, isManual, accessories, co2Discharge, onStock, monthsPrice3, monthsPrice6, monthsPrice12, monthsPrice24, monthsPrice36, 0));
+        repository.createCar(new Car(frameNumber, model, manufacturer, isManual, accessories, co2Discharge, onStock, monthsPrice3, monthsPrice6, monthsPrice12, monthsPrice24, monthsPrice36, 0, color));
 
         return "redirect:/";
     }

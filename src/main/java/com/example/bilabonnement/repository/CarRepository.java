@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.List;
 
 
@@ -45,7 +46,8 @@ public class CarRepository {
                         resultSet.getInt("12MonthsPrice"),
                         resultSet.getInt("24MonthsPrice"),
                         resultSet.getInt("36MonthsPrice"),
-                        resultSet.getInt("totalKilometersDriven")
+                        resultSet.getInt("totalKilometersDriven"),
+                        resultSet.getString("color")
                 ));
             }
 
@@ -154,7 +156,8 @@ public class CarRepository {
             pst.setString(3,frameNumber);
             pst.setInt(4, vehicleNumber);
             pst.setString(5, customerName);
-
+            pst.setDate(6, startDate);
+            pst.setDate(7, endDate);
             pst.executeUpdate();
 
         }catch (SQLException e){

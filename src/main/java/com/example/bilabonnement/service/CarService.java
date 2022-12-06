@@ -139,9 +139,41 @@ public class CarService {
 
 
         return false;
-
     }
 
+    public boolean isCarPriceMinusOne(Car car, int monthsRented){
+
+        int monthlyPrice = 0;
+        switch (monthsRented) {
+            case 3 -> monthlyPrice = car.getMonthsPrice3();
+            case 6 -> monthlyPrice = car.getMonthsPrice6();
+            case 12 -> monthlyPrice = car.getMonthsPrice12();
+            case 24 -> monthlyPrice = car.getMonthsPrice24();
+            case 36 -> monthlyPrice = car.getMonthsPrice36();
+        }
+        if (monthlyPrice == -1) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public LocalDate endDate(LocalDate startDate, int monthsRented) {
+
+        LocalDate endDate = startDate.plusMonths(monthsRented);
+        return endDate;
+    }
+
+    public int daysLeftToReturn(Date endDate) {
+        LocalDate now = LocalDate.now();
+
+        Duration diff = Duration.between(now.atStartOfDay(), endDate.toInstant());
+        long diffDays = diff.toDays();
+
+        return (int) diffDays;
+
+
+    }
 
 
 }
