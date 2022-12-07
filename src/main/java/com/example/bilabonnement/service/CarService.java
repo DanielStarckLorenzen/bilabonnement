@@ -4,6 +4,7 @@ package com.example.bilabonnement.service;
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.RentalAgreements;
 import com.example.bilabonnement.repository.CarRepository;
+import com.example.bilabonnement.repository.RentalRepository;
 import org.thymeleaf.util.DateUtils;
 
 import java.time.Clock;
@@ -18,9 +19,10 @@ public class CarService {
     private String rented = "Rented";
     private String damaged = "Damaged";
 
-    private final double OVERDRIVEN_COST = 0.75;
+
 
     private CarRepository carRepository = new CarRepository();
+    private RentalRepository rentalRepository = new RentalRepository();
 
     public Map<String, Integer> kilometersPrice() {
         Map<String,Integer> kmPrice = new HashMap<>();
@@ -33,14 +35,13 @@ public class CarService {
         kmPrice.put("4.000 km.", 2750);
         kmPrice.put("4.500 km.", 3240);
 
-
         return kmPrice;
     }
     
     public int calculateTotalPrice(Car car) {
         int vehicleNumber = car.getVehicleNumber();
         CarRepository carRepository = new CarRepository();
-        RentalAgreements rentalCar = carRepository.getMonthsAndKilometers(vehicleNumber);
+        RentalAgreements rentalCar = rentalRepository.getMonthsAndKilometers(vehicleNumber);
 
         int monthsRented = rentalCar.getMonthsRented();
         int kilometersPerMonth = rentalCar.getKilometerPerMonth();
@@ -97,35 +98,9 @@ public class CarService {
 
         return totalSum;
     }
-    public void calculateOverDrivenKm(int vehicleNumber, int kilometersDriven) {
-        List<RentalAgreements> allRentalAgreements = carRepository.getAllRentalAgreements();
-        int maxRentalId = carRepository.getMaxRentalId(vehicleNumber);
-        int kilometersDrivenCustomer = 0;
-        int kilometersOverDriven = 0;
-        for (Car car : carRepository.getAllCars()) {
-            if (car.getVehicleNumber() == vehicleNumber) {
-                kilometersDrivenCustomer = kilometersDriven - car.getTotalKilometersDriven();
-            }
-        }
 
-        for (RentalAgreements rentalAgreements : allRentalAgreements) {
-            if (rentalAgreements.getRentalId() == maxRentalId) {
-                kilometersOverDriven = kilometersDrivenCustomer - (rentalAgreements.getMonthsRented() * rentalAgreements.getKilometerPerMonth());
-                if (kilometersOverDriven < 0)
-                    kilometersOverDriven = 0;
 
-                carRepository.updateIsOverTraveled(kilometersOverDriven, maxRentalId);
-            }
-        }
-        calculateOverdrivenCost(kilometersOverDriven, maxRentalId);
 
-    }
-
-    public void calculateOverdrivenCost(int kilometersOverdriven, int maxRentalId) {
-        double totalOverdrivenCost = kilometersOverdriven * OVERDRIVEN_COST;
-
-        carRepository.updateOverdrivenCost(totalOverdrivenCost, maxRentalId);
-    }
 
     public boolean isKilometersDrivenNowHigher(int vehicleNumber, int totalKilometersTraveled) {
 
@@ -137,7 +112,6 @@ public class CarService {
                 else return false;
             }
         }
-
 
         return false;
     }
@@ -159,22 +133,7 @@ public class CarService {
         }
     }
 
-    public LocalDate endDate(LocalDate startDate, int monthsRented) {
 
-        LocalDate endDate = startDate.plusMonths(monthsRented);
-        return endDate;
-    }
-
-    public int daysLeftToReturn(Date endDate) {
-        LocalDate now = LocalDate.now();
-        Date date = Date.from(now.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
-        long diffDays = (endDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24);
-
-        return (int) diffDays;
-
-
-    }
 
 
 }

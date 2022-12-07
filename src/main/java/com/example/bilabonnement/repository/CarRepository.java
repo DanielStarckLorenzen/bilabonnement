@@ -106,18 +106,7 @@ public class CarRepository {
         }
     }
 
-    public void updateIsOverTraveled(int kilometersOverdriven, int rentalId) {
-        try {
-            pst = conn.prepareStatement("update rentalagreements set kilometersOverdriven = ? where rentalId = ?");
-            pst.setInt(1, kilometersOverdriven);
-            pst.setInt(2, rentalId);
 
-            pst.executeUpdate();
-
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-    }
 
     public void createCar(Car car) {
         try {
@@ -143,130 +132,6 @@ public class CarRepository {
         }
     }
 
-    public void createRentalAgreement (Car car, int monthsRented, int kilometersPerMonth, String customerName, LocalDate startLocalDate, LocalDate endLocalDate) {
-        String frameNumber = car.getFrameNumber();
-        int vehicleNumber = car.getVehicleNumber();
-        Date startDate = Date.valueOf(startLocalDate);
-        Date endDate = Date.valueOf(endLocalDate);
-
-        try {
-            pst = conn.prepareStatement("insert into rentalagreements (monthsRented, kilometerPerMonth, frameNumber, vehicleNumber, customerName, startDate, endDate) values(?, ?, ?, ?, ?, ?, ?) ");
-            pst.setInt(1,monthsRented);
-            pst.setInt(2, kilometersPerMonth);
-            pst.setString(3,frameNumber);
-            pst.setInt(4, vehicleNumber);
-            pst.setString(5, customerName);
-            pst.setDate(6, startDate);
-            pst.setDate(7, endDate);
-            pst.executeUpdate();
-
-        }catch (SQLException e){
-            System.out.println(e);
-        }
-        changeStatus(rented, vehicleNumber);
-    }
-
-    public RentalAgreements getMonthsAndKilometers(int vehicleNumber) {
-        RentalAgreements rentalAgreement = new RentalAgreements();
-        try {
-            pst = conn.prepareStatement("select * from rentalagreements where vehicleNumber = ?");
-            pst.setInt(1, vehicleNumber);
-
-            ResultSet resultSet = pst.executeQuery();
-            while(resultSet.next()) {
-                rentalAgreement = new RentalAgreements(
-                        resultSet.getInt("rentalId"),
-                        resultSet.getInt("monthsRented"),
-                        resultSet.getInt("kilometerPerMonth"),
-                        resultSet.getInt("kilometersOverdriven"),
-                        resultSet.getString("customerName"),
-                        resultSet.getInt("vehicleNumber"),
-                        resultSet.getString("frameNumber"),
-                        resultSet.getDate("startDate"),
-                        resultSet.getDate("endDate")
-                );
-
-            }
-        }catch (SQLException e){
-            System.out.println(e);
-        }
-        return rentalAgreement;
-    }
-
-    public void createDamageReport(Car car, String problem, double costs) {
-        String frameNumber = car.getFrameNumber();
-        int vehicleNumber = car.getVehicleNumber();
-
-        try {
-            pst = conn.prepareStatement("insert into damages (problem, frameNumber, vehicleNumber, damageCosts) values (?, ?, ?, ?)");
-            pst.setString(1, problem);
-            pst.setString(2, frameNumber);
-            pst.setInt(3, vehicleNumber);
-            pst.setDouble(4, costs);
-
-            pst.executeUpdate();
-        }catch(SQLException e){
-            System.out.println(e);
-        }
-        changeStatus(damaged, vehicleNumber);
-    }
-
-    public List<RentalAgreements> getAllRentalAgreements() {
-        List<RentalAgreements> rentalAgreements = new ArrayList<>();
-        try {
-            pst = conn.prepareStatement("select * from rentalagreements");
-
-            ResultSet resultSet = pst.executeQuery();
-
-            while (resultSet.next()) {
-                rentalAgreements.add(new RentalAgreements(
-                        resultSet.getInt("rentalId"),
-                        resultSet.getInt("monthsRented"),
-                        resultSet.getInt("kilometerPerMonth"),
-                        resultSet.getInt("kilometersOverDriven"),
-                        resultSet.getString("frameNumber"),
-                        resultSet.getInt("vehicleNumber"),
-                        resultSet.getDouble("overdrivenCost"),
-                        resultSet.getString("customerName"),
-                        resultSet.getDate("startDate"),
-                        resultSet.getDate("endDate")
-                ));
-            }
-
-        } catch(SQLException e){
-            System.out.println(e);
-        }
-        return rentalAgreements;
-    }
-
-    public int getMaxRentalId(int vehicleNumber) {
-        int rentalId = 0;
-        try {
-            pst = conn.prepareStatement("select max(rentalId) from rentalagreements where vehicleNumber = ?");
-            pst.setInt(1, vehicleNumber);
-
-            ResultSet resultSet = pst.executeQuery();
-
-            if (resultSet.next())
-                rentalId = resultSet.getInt(1);
-        } catch (SQLException e){
-            System.out.println(e);
-        }
-        return rentalId;
-    }
-
-    public void updateOverdrivenCost(double overdrivenCost, int rentalId) {
-        try {
-            pst = conn.prepareStatement("update rentalagreements set overdrivenCost = ? where rentalId = ?");
-            pst.setDouble(1, overdrivenCost);
-            pst.setDouble(2, rentalId);
-
-            pst.executeUpdate();
-        } catch(SQLException e){
-            System.out.println(e);
-        }
-    }
-
     public void removeCar(String frameNumber) {
         try {
             pst = conn.prepareStatement("delete from car where frameNumber = ?");
@@ -287,23 +152,6 @@ public class CarRepository {
         } catch (SQLException e){
             System.out.println(e);
         }
-    }
-
-    public Date getEndDate(int rentalId) {
-        Date endDate = null;
-        try {
-            pst = conn.prepareStatement("select endDate from rentalagreements where rentalId = ?");
-            pst.setInt(1, rentalId);
-
-            ResultSet resultset = pst.executeQuery();
-
-            if (resultset.next())
-                endDate = resultset.getDate(1);
-
-        } catch (SQLException e){
-            System.out.println(e);
-        }
-       return endDate;
     }
 
 }
