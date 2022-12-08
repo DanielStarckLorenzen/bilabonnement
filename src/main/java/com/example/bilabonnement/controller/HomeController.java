@@ -6,7 +6,6 @@ import com.example.bilabonnement.repository.CarRepository;
 import com.example.bilabonnement.repository.DamageRepository;
 import com.example.bilabonnement.repository.RentalRepository;
 import com.example.bilabonnement.service.CarService;
-import com.example.bilabonnement.service.DamageService;
 import com.example.bilabonnement.service.RentalService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,14 +43,6 @@ public class HomeController {
 
         return "index";
     }
-    @GetMapping("/dataRegistration")
-    public String registerData(Model model){
-        model.addAttribute("carsOnStock", carRepository.getAllCarsStatus(onStock));
-        model.addAttribute("carsRentedOut", carRepository.getAllCarsStatus(rented));
-        model.addAttribute("rentalAgreements", rentalRepository.getAllRentalAgreements());
-
-        return "dataRegistration";
-    }
 
     @PostMapping("/returnCar")
     public String returnCar(WebRequest dataFromForm) {
@@ -69,65 +60,6 @@ public class HomeController {
 
     }
 
-    @GetMapping("/damageRegistration")
-    public String registerDamages(Model model){
-        model.addAttribute("allCars", carRepository.getAllCars());
-        model.addAttribute("damagedCars", carRepository.getAllCarsStatus(damaged));
-        model.addAttribute("carsOnStock", carRepository.getAllCarsStatus(onStock));
-
-
-        return "damageRegistration";
-    }
-
-    @PostMapping("/registerDamage")
-    public String registerDamage(WebRequest dataFromForm, Model model) {
-        int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
-
-        Car damagedCar = new Car();
-
-        for (Car car : carRepository.getAllCars()) {
-            if (vehicleNumber == car.getVehicleNumber()) {
-                damagedCar = car;
-            }
-        }
-        model.addAttribute("damagedCar", damagedCar);
-
-        return "damageReport";
-    }
-
-    @PostMapping("/createDamageReport")
-    public String createDamageReport(WebRequest dataFromForm) {
-        int damagedCarNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("damagedCar")));
-        Car damagedCar = new Car();
-        for (Car car : carRepository.getAllCars()) {
-            if (damagedCarNumber == car.getVehicleNumber()) {
-                damagedCar = car;
-            }
-        }
-        String problem = dataFromForm.getParameter("problem");
-        double costs = Double.parseDouble(Objects.requireNonNull(dataFromForm.getParameter("costs")));
-        damageRepository.createDamageReport(damagedCar, problem, costs);
-
-        return "redirect:/damageRegistration";
-    }
-
-    @PostMapping("/returnFromRepair")
-    public String returnFromRepair(WebRequest dataFromForm) {
-        int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
-        carRepository.changeStatus(onStock, vehicleNumber);
-
-        return "redirect:/damageRegistration";
-    }
-
-    @GetMapping("/businessData")
-    public String seeDataOverview(Model model) {
-        model.addAttribute("totalSumOfRentedCars", carService.totalSumOfRentedCars());
-        model.addAttribute("amountOfCarsRented", carService.amountOfCarsRented());
-        model.addAttribute("amountOfCarsOnStock", carService.amountOfCarsOnStock());
-        model.addAttribute("amountOfCarsDamaged", carService.amountOfCarsDamaged());
-
-        return "businessData";
-    }
 
     @PostMapping("/setUpAgreement")
     public String setUpAgreement(WebRequest dataFromForm){
@@ -153,8 +85,8 @@ public class HomeController {
     }
 
     //Ret registrer til register
-    @PostMapping("/registrerAgreement")
-    public String registrerAgreement(WebRequest dataFromForm) {
+    @PostMapping("/registerAgreement")
+    public String registerAgreement(WebRequest dataFromForm) {
         int monthsRented = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("monthsRented")));
         int kilometers = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("kilometers")));
         int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
@@ -168,8 +100,6 @@ public class HomeController {
                 chosenCar = car;
             }
         }
-
-
 
         if (carService.isCarPriceMinusOne(chosenCar, monthsRented)) {
             return "redirect:/showCar?frameNumber=" + chosenCar.getFrameNumber();
