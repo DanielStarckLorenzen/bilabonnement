@@ -3,6 +3,7 @@ package com.example.bilabonnement.service;
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.RentalAgreements;
 import com.example.bilabonnement.repository.CarRepository;
+import com.example.bilabonnement.repository.RentalRepository;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -18,11 +19,12 @@ public class RentalService {
     private final double OVERDRIVEN_COST = 0.75;
 
     private CarRepository carRepository = new CarRepository();
+    private RentalRepository rentalRepository = new RentalRepository();
 
     public void calculateOverdrivenCost(int kilometersOverdriven, int maxRentalId) {
         double totalOverdrivenCost = kilometersOverdriven * OVERDRIVEN_COST;
 
-        carRepository.updateOverdrivenCost(totalOverdrivenCost, maxRentalId);
+        rentalRepository.updateOverdrivenCost(totalOverdrivenCost, maxRentalId);
     }
     public LocalDate endDate(LocalDate startDate, int monthsRented) {
 
@@ -41,8 +43,8 @@ public class RentalService {
 
     }
     public void calculateOverDrivenKm(int vehicleNumber, int kilometersDriven) {
-        List<RentalAgreements> allRentalAgreements = carRepository.getAllRentalAgreements();
-        int maxRentalId = carRepository.getMaxRentalId(vehicleNumber);
+        List<RentalAgreements> allRentalAgreements = rentalRepository.getAllRentalAgreements();
+        int maxRentalId = rentalRepository.getMaxRentalId(vehicleNumber);
         int kilometersDrivenCustomer = 0;
         int kilometersOverDriven = 0;
         for (Car car : carRepository.getAllCars()) {
@@ -57,7 +59,7 @@ public class RentalService {
                 if (kilometersOverDriven < 0)
                     kilometersOverDriven = 0;
 
-                carRepository.updateIsOverTraveled(kilometersOverDriven, maxRentalId);
+                rentalRepository.updateIsOverTraveled(kilometersOverDriven, maxRentalId);
             }
         }
         calculateOverdrivenCost(kilometersOverDriven, maxRentalId);
