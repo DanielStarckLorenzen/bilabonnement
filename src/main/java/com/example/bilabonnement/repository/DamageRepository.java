@@ -1,6 +1,7 @@
 package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Car;
+import com.example.bilabonnement.model.enums.Status;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,9 +9,6 @@ import java.sql.SQLException;
 
 public class DamageRepository {
 
-    private String onStock = "OnStock";
-    private String rented = "Rented";
-    private String damaged = "Damaged";
 
     private Connection conn = DatabaseManager.getConnection();
     private PreparedStatement pst = null;
@@ -31,6 +29,6 @@ public class DamageRepository {
         }catch(SQLException e){
             System.out.println(e);
         }
-        carRepository.changeStatus(damaged, vehicleNumber);
+        carRepository.changeStatus(Status.DAMAGED, vehicleNumber);
     }
 }

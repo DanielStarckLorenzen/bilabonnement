@@ -12,10 +12,6 @@ import java.util.List;
 
 public class RentalRepository {
 
-    private String onStock = "OnStock";
-    private String rented = "Rented";
-    private String damaged = "Damaged";
-
     private Connection conn = DatabaseManager.getConnection();
     private PreparedStatement pst = null;
 
