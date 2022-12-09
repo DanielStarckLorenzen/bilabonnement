@@ -3,23 +3,13 @@ package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.RentalAgreements;
+import com.example.bilabonnement.model.enums.Status;
 import com.example.bilabonnement.repository.CarRepository;
 import com.example.bilabonnement.repository.RentalRepository;
-import org.thymeleaf.util.DateUtils;
 
-import java.time.Clock;
-import java.time.Duration;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 
 public class CarService {
-
-    private String onStock = "OnStock";
-    private String rented = "Rented";
-    private String damaged = "Damaged";
-
-
 
     private CarRepository carRepository = new CarRepository();
     private RentalRepository rentalRepository = new RentalRepository();
@@ -76,19 +66,19 @@ public class CarService {
         return carRepository.getAllCars().size();
     }
     public int amountOfCarsDamaged() {
-        return carRepository.getAllCarsStatus(damaged).size();
+        return carRepository.getAllCarsStatus(Status.DAMAGED).size();
     }
 
     public int amountOfCarsOnStock() {
-        return carRepository.getAllCarsStatus(onStock).size();
+        return carRepository.getAllCarsStatus(Status.ON_STOCK).size();
     }
 
     public int amountOfCarsRented() {
-        return carRepository.getAllCarsStatus(rented).size();
+        return carRepository.getAllCarsStatus(Status.RENTED).size();
     }
 
     public int totalSumOfRentedCars() {
-        List<Car> rentedCars = carRepository.getAllCarsStatus("Rented");
+        List<Car> rentedCars = carRepository.getAllCarsStatus(Status.RENTED);
 
         int totalSum = 0;
 
@@ -104,7 +94,7 @@ public class CarService {
 
     public boolean isKilometersDrivenNowHigher(int vehicleNumber, int totalKilometersTraveled) {
 
-        for (Car car : carRepository.getAllCarsStatus(rented)) {
+        for (Car car : carRepository.getAllCarsStatus(Status.RENTED)) {
             if (car.getVehicleNumber() == vehicleNumber) {
                 if (car.getTotalKilometersDriven() < totalKilometersTraveled) {
                     return true;

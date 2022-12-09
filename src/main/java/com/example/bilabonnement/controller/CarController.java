@@ -1,12 +1,10 @@
 package com.example.bilabonnement.controller;
 
 import com.example.bilabonnement.model.Car;
+import com.example.bilabonnement.model.enums.Status;
 import com.example.bilabonnement.repository.CarRepository;
-
-import com.example.bilabonnement.repository.DamageRepository;
 import com.example.bilabonnement.repository.RentalRepository;
 import com.example.bilabonnement.service.CarService;
-import com.example.bilabonnement.service.DamageService;
 import com.example.bilabonnement.service.RentalService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,23 +12,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 
 @Controller
-public class HomeController {
-
-    private String onStock = "OnStock";
-    private String rented = "Rented";
-    private String damaged = "Damaged";
+public class CarController {
 
     private CarRepository carRepository = new CarRepository();
     private RentalRepository rentalRepository = new RentalRepository();
-    private DamageRepository damageRepository = new DamageRepository();
     private CarService carService = new CarService();
     private RentalService rentalService = new RentalService();
 
@@ -44,14 +35,6 @@ public class HomeController {
 
         return "index";
     }
-    @GetMapping("/dataRegistration")
-    public String registerData(Model model){
-        model.addAttribute("carsOnStock", carRepository.getAllCarsStatus(onStock));
-        model.addAttribute("carsRentedOut", carRepository.getAllCarsStatus(rented));
-        model.addAttribute("rentalAgreements", rentalRepository.getAllRentalAgreements());
-
-        return "dataRegistration";
-    }
 
     @PostMapping("/returnCar")
     public String returnCar(WebRequest dataFromForm) {
@@ -60,64 +43,14 @@ public class HomeController {
 
         if (carService.isKilometersDrivenNowHigher(vehicleNumber, totalKilometersTraveled)) {
             rentalService.calculateOverDrivenKm(vehicleNumber, totalKilometersTraveled);
-            carRepository.changeStatus(onStock, vehicleNumber);
+            carRepository.changeStatus(Status.ON_STOCK, vehicleNumber);
             carRepository.updateKilometersDriven(vehicleNumber, totalKilometersTraveled);
         }
 
         return "redirect:/dataRegistration";
 
-
     }
 
-    @GetMapping("/damageRegistration")
-    public String registerDamages(Model model){
-        model.addAttribute("allCars", carRepository.getAllCars());
-        model.addAttribute("damagedCars", carRepository.getAllCarsStatus(damaged));
-        model.addAttribute("carsOnStock", carRepository.getAllCarsStatus(onStock));
-
-
-        return "damageRegistration";
-    }
-
-    @PostMapping("/registerDamage")
-    public String registerDamage(WebRequest dataFromForm, Model model) {
-        int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
-
-        Car damagedCar = new Car();
-
-        for (Car car : carRepository.getAllCars()) {
-            if (vehicleNumber == car.getVehicleNumber()) {
-                damagedCar = car;
-            }
-        }
-        model.addAttribute("damagedCar", damagedCar);
-
-        return "damageReport";
-    }
-
-    @PostMapping("/createDamageReport")
-    public String createDamageReport(WebRequest dataFromForm) {
-        int damagedCarNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("damagedCar")));
-        Car damagedCar = new Car();
-        for (Car car : carRepository.getAllCars()) {
-            if (damagedCarNumber == car.getVehicleNumber()) {
-                damagedCar = car;
-            }
-        }
-        String problem = dataFromForm.getParameter("problem");
-        double costs = Double.parseDouble(Objects.requireNonNull(dataFromForm.getParameter("costs")));
-        damageRepository.createDamageReport(damagedCar, problem, costs);
-
-        return "redirect:/damageRegistration";
-    }
-
-    @PostMapping("/returnFromRepair")
-    public String returnFromRepair(WebRequest dataFromForm) {
-        int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
-        carRepository.changeStatus(onStock, vehicleNumber);
-
-        return "redirect:/damageRegistration";
-    }
 
     @GetMapping("/businessData")
     public String seeDataOverview(Model model) {
@@ -127,13 +60,6 @@ public class HomeController {
         model.addAttribute("amountOfCarsDamaged", carService.amountOfCarsDamaged());
 
         return "businessData";
-    }
-
-    @PostMapping("/setUpAgreement")
-    public String setUpAgreement(WebRequest dataFromForm){
-        String frameNumber = dataFromForm.getParameter("frameNumber");
-
-        return "redirect:/showCar?frameNumber=" + frameNumber;
     }
 
     @GetMapping("/showCar")
@@ -152,37 +78,6 @@ public class HomeController {
         return "showCar";
     }
 
-    //Ret registrer til register
-    @PostMapping("/registrerAgreement")
-    public String registrerAgreement(WebRequest dataFromForm) {
-        int monthsRented = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("monthsRented")));
-        int kilometers = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("kilometers")));
-        int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
-
-        String customerName = dataFromForm.getParameter("customerName");
-
-        Car chosenCar = null;
-
-        for (Car car : carRepository.getAllCars()) {
-            if (car.getVehicleNumber() == vehicleNumber) {
-                chosenCar = car;
-            }
-        }
-
-
-
-        if (carService.isCarPriceMinusOne(chosenCar, monthsRented)) {
-            return "redirect:/showCar?frameNumber=" + chosenCar.getFrameNumber();
-        } else {
-            String startDateString = dataFromForm.getParameter("startDate");
-            LocalDate startDate = LocalDate.parse(startDateString);
-            LocalDate endDate = rentalService.endDate(startDate, monthsRented);
-
-            rentalRepository.createRentalAgreement(chosenCar, monthsRented, kilometers, customerName, startDate, endDate);
-
-            return "redirect:/";
-        }
-    }
 
     @GetMapping("/showListOfCarData")
     public String showListOfCars(@RequestParam String status, Model model) {
@@ -190,10 +85,10 @@ public class HomeController {
 
         //Ikke nødvendigt at bruge service, da de virker redundant...
         switch (status) {
-            case "onStock" -> cars = carRepository.getAllCarsStatus(onStock);
+            case "onStock" -> cars = carRepository.getAllCarsStatus(Status.ON_STOCK);
             case "allCars" -> cars = carRepository.getAllCars();
-            case "damaged" -> cars = carRepository.getAllCarsStatus(damaged);
-            case "rented" -> cars = carRepository.getAllCarsStatus(rented);
+            case "damaged" -> cars = carRepository.getAllCarsStatus(Status.DAMAGED);
+            case "rented" -> cars = carRepository.getAllCarsStatus(Status.RENTED);
         }
         model.addAttribute("cars", cars);
 
@@ -224,14 +119,14 @@ public class HomeController {
         int monthsPrice36 = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("36months")));
         String color = dataFromForm.getParameter("color");
 
-        carRepository.createCar(new Car(frameNumber, model, manufacturer, isManual, accessories, co2Discharge, onStock, monthsPrice3, monthsPrice6, monthsPrice12, monthsPrice24, monthsPrice36, 0, color));
+        carRepository.createCar(new Car(frameNumber, model, manufacturer, isManual, accessories, co2Discharge, Status.ON_STOCK.toString(), monthsPrice3, monthsPrice6, monthsPrice12, monthsPrice24, monthsPrice36, 0, color));
 
         return "redirect:/";
     }
 
     @GetMapping("/sellCarMenu")
     public String sellCarMenu(Model model) {
-        model.addAttribute("carsOnStock", carRepository.getAllCarsStatus(onStock));
+        model.addAttribute("carsOnStock", carRepository.getAllCarsStatus(Status.ON_STOCK));
         return "sellCar";
     }
 

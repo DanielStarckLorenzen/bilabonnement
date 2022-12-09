@@ -2,6 +2,7 @@ package com.example.bilabonnement.repository;
 
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.RentalAgreements;
+import com.example.bilabonnement.model.enums.Status;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,10 +16,6 @@ import java.util.List;
 
 
 public class CarRepository {
-
-    private String onStock = "OnStock";
-    private String rented = "Rented";
-    private String damaged = "Damaged";
 
     private Connection conn = DatabaseManager.getConnection();
     private PreparedStatement pst = null;
@@ -58,12 +55,12 @@ public class CarRepository {
         return cars;
     }
 
-    public List<Car> getAllCarsStatus(String status) {
+    public List<Car> getAllCarsStatus(Status status) {
         List<Car> cars = new ArrayList<>();
 
         try {
             pst = conn.prepareStatement("SELECT * FROM car WHERE status like ?");
-            pst.setString(1, status);
+            pst.setString(1, status.toString());
 
             ResultSet resultSet = pst.executeQuery();
 
@@ -94,10 +91,10 @@ public class CarRepository {
         return cars;
     }
 
-    public void changeStatus(String status, int vehicleNumber) {
+    public void changeStatus(Status status, int vehicleNumber) {
         try {
             pst = conn.prepareStatement("update car set status = ? where vehicleNumber = ?");
-            pst.setString(1, status);
+            pst.setString(1, status.toString());
             pst.setInt(2, vehicleNumber);
 
             pst.executeUpdate();

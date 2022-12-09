@@ -12,10 +12,6 @@ import java.util.List;
 
 public class RentalService {
 
-    private String onStock = "OnStock";
-    private String rented = "Rented";
-    private String damaged = "Damaged";
-
     private final double OVERDRIVEN_COST = 0.75;
 
     private CarRepository carRepository = new CarRepository();
@@ -52,7 +48,6 @@ public class RentalService {
                 kilometersDrivenCustomer = kilometersDriven - car.getTotalKilometersDriven();
             }
         }
-
         for (RentalAgreements rentalAgreements : allRentalAgreements) {
             if (rentalAgreements.getRentalId() == maxRentalId) {
                 kilometersOverDriven = kilometersDrivenCustomer - (rentalAgreements.getMonthsRented() * rentalAgreements.getKilometerPerMonth());
@@ -63,6 +58,10 @@ public class RentalService {
             }
         }
         calculateOverdrivenCost(kilometersOverDriven, maxRentalId);
+
+    }
+
+    public void createAgreement(int monthsRented, int kilometers, int vehicleNumber, String customerName) {
 
     }
 }
