@@ -28,6 +28,7 @@
 
 <div class="row justify-content-end carStatusTable">
 <div class="card dataTables">
+    <h2>Ledige biler</h2>
 <table class="table" id="carsReadyToBeRented">
     <thead>
         <tr>
@@ -63,7 +64,8 @@
 
 <div class="row justify-content-end carStatusTable">
 <div class="card dataTables">
-<table class="table" id="carsRentedOut">
+    <h2>Udlejet biler</h2>
+<table class="table" id="carsExpired">
     <thead>
     <tr>
         <th scope="col">Mærke</th>
@@ -86,7 +88,7 @@
         <td th:text="${carRentedOut.CO2discharge}"></td>
         <td th:text="${carRentedOut.frameNumber}"></td>
         <td th:text="${carRentedOut.totalKilometersDriven}"></td>
-        <form id="returnCar" method="post" action="/returnCar">
+        <form method="post" action="/returnCar">
             <td> <input type="number" name="totalKilometersDriven"></td>
             <td> <input type="submit" name="chooseCar" value="Vælg"></td>
             <input type="hidden" name="vehicleNumber" th:value="${carRentedOut.vehicleNumber}">
@@ -94,6 +96,43 @@
     </tr>
     </tbody>
 </table>
+</div>
+</div>
+
+    <div class="row justify-content-end carStatusTable">
+        <div class="card dataTables">
+            <h2>Biler overskredet indleveringsdato</h2>
+            <table class="table" id="carsRentedOut">
+                <thead>
+                <tr>
+                    <th scope="col">Mærke</th>
+                    <th scope="col">Model</th>
+                    <th scope="col">Farve</th>
+                    <th scope="col">Manuelt gear</th>
+                    <th scope="col">CO2 udledning</th>
+                    <th scope="col">Stel-nummer</th>
+                    <th scope="col">Kørte kilometer før</th>
+                    <th scope="col">Kørte kilometer nu</th>
+                    <th scope="col">Modtag bil</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="carExpired: ${carsExpired}">
+                    <td th:text="${carExpired.manufacturer}"></td>
+                    <td th:text="${carExpired.model}"></td>
+                    <td th:text="${carExpired.color}"></td>
+                    <td th:text="${carExpired.isManual}"></td>
+                    <td th:text="${carExpired.CO2discharge}"></td>
+                    <td th:text="${carExpired.frameNumber}"></td>
+                    <td th:text="${carExpired.totalKilometersDriven}"></td>
+                    <form id="returnCar" method="post" action="/returnCar">
+                        <td> <input type="number" name="totalKilometersDriven"></td>
+                        <td> <input type="submit" name="chooseCar" value="Vælg"></td>
+                        <input type="hidden" name="vehicleNumber" th:value="${carExpired.vehicleNumber}">
+                    </form>
+                </tr>
+                </tbody>
+            </table>
 </div>
 </div>
 </body>

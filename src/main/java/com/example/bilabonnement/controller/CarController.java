@@ -32,6 +32,7 @@ public class CarController {
         model.addAttribute("carsOnStock", carService.amountOfCarsOnStock());
         model.addAttribute("carsRented", carService.amountOfCarsRented());
         model.addAttribute("carsDamaged", carService.amountOfCarsDamaged());
+        rentalService.checkIfExpired();
 
         return "index";
     }

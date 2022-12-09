@@ -102,6 +102,14 @@ public class CarService {
                 else return false;
             }
         }
+        for (Car car : carRepository.getAllCarsStatus(Status.EXPIRED)) {
+            if (car.getVehicleNumber() == vehicleNumber) {
+                if (car.getTotalKilometersDriven() < totalKilometersTraveled) {
+                    return true;
+                }
+                else return false;
+            }
+        }
 
         return false;
     }

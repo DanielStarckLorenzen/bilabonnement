@@ -2,11 +2,13 @@ package com.example.bilabonnement.service;
 
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.RentalAgreements;
+import com.example.bilabonnement.model.enums.Status;
 import com.example.bilabonnement.repository.CarRepository;
 import com.example.bilabonnement.repository.RentalRepository;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -61,7 +63,34 @@ public class RentalService {
 
     }
 
-    public void createAgreement(int monthsRented, int kilometers, int vehicleNumber, String customerName) {
+    public List<RentalAgreements> getActiveRentalAgreements() {
+        List<RentalAgreements> activeRentals = new ArrayList<>();
+        for (Car car : carRepository.getAllCarsStatus(Status.RENTED)) {
+            int rentalId = rentalRepository.getMaxRentalId(car.getVehicleNumber());
+            for (RentalAgreements agreement : rentalRepository.getAllRentalAgreements()) {
+                if (rentalId == agreement.getRentalId()) {
+                    activeRentals.add(agreement);
+                }
+            }
+        }
+        return activeRentals;
+    }
 
+    public void checkIfExpired() {
+        LocalDate today = LocalDate.now();
+        Date now = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
+        for (RentalAgreements agreements : getActiveRentalAgreements()) {
+            int vehicleNumber = 0;
+            for (Car car : carRepository.getAllCarsStatus(Status.RENTED)) {
+                if (car.getFrameNumber().equals(agreements.getFrameNumber())) {
+                    vehicleNumber = car.getVehicleNumber();
+                }
+                if (agreements.getEndDate() != null) {
+                    if (agreements.getEndDate().after(now)) {
+                    carRepository.changeStatus(Status.EXPIRED, vehicleNumber);
+                    }
+                }
+            }
+        }
     }
 }

@@ -108,6 +108,22 @@ public class RentalAgreements {
         this.customerName = customerName;
     }
 
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     @Override
     public String toString() {
         return "RentalAgreements{" +
@@ -119,6 +135,8 @@ public class RentalAgreements {
                 ", vehicleNumber=" + vehicleNumber +
                 ", overdrivenCost=" + overdrivenCost +
                 ", customerName='" + customerName + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
                 '}';
     }
 }
