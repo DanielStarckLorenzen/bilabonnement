@@ -3,8 +3,6 @@ package com.example.bilabonnement.repository;
 import com.example.bilabonnement.model.Car;
 import com.example.bilabonnement.model.RentalAgreements;
 import com.example.bilabonnement.model.enums.Status;
-import org.apache.catalina.webresources.CachedResource;
-
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
