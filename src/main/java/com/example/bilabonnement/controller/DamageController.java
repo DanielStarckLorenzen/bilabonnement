@@ -46,17 +46,25 @@ public class DamageController {
 
     @PostMapping("/createDamageReport")
     public String createDamageReport(WebRequest dataFromForm) {
+        //Hent bilen der er blevet valgt ud fra "vehicleNumber"
         int damagedCarNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("damagedCar")));
+
+        //Find den rigtige bil ud fra det data vi får fra formen i HTML
         Car damagedCar = new Car();
         for (Car car : carRepository.getAllCars()) {
             if (damagedCarNumber == car.getVehicleNumber()) {
                 damagedCar = car;
             }
         }
+
+        //Hent hvad der blevet indtastet som problemet fra formen
         String problem = dataFromForm.getParameter("problem");
         double costs = Double.parseDouble(Objects.requireNonNull(dataFromForm.getParameter("costs")));
+
+        //Opret skades rapporten i databasen
         damageRepository.createDamageReport(damagedCar, problem, costs);
 
+        //Redirecter tilbage til oversigten over skader
         return "redirect:/damageRegistration";
     }
 

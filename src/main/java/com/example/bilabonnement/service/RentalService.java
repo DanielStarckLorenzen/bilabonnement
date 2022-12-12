@@ -26,8 +26,7 @@ public class RentalService {
     }
     public LocalDate endDate(LocalDate startDate, int monthsRented) {
 
-        LocalDate endDate = startDate.plusMonths(monthsRented);
-        return endDate;
+        return startDate.plusMonths(monthsRented);
     }
 
     public int daysLeftToReturn(Date endDate) {
@@ -37,8 +36,6 @@ public class RentalService {
         long diffDays = (endDate.getTime() - date.getTime()) / (1000 * 60 * 60 * 24);
 
         return (int) diffDays;
-
-
     }
     public void calculateOverDrivenKm(int vehicleNumber, int kilometersDriven) {
         List<RentalAgreements> allRentalAgreements = rentalRepository.getAllRentalAgreements();
@@ -77,18 +74,23 @@ public class RentalService {
     }
 
     public void checkIfExpired() {
+        //Instantiere datoen i dag som en LocalDate
         LocalDate today = LocalDate.now();
         Date now = Date.from(today.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        //Tjekker igennem alle aktive lejeaftaler
         for (RentalAgreements agreements : getActiveRentalAgreements()) {
             int vehicleNumber = 0;
+
+            //Tjekker alle biler der er udlejet så vi kan forbinde den rigtige aktive lejekontrakt til den rigtige bil
             for (Car car : carRepository.getAllCarsStatus(Status.RENTED)) {
                 if (car.getFrameNumber().equals(agreements.getFrameNumber())) {
                     vehicleNumber = car.getVehicleNumber();
                 }
-                if (agreements.getEndDate() != null) {
-                    if (agreements.getEndDate().after(now)) {
+
+                //Tjekker at lejeaftalens slutdato eksisterer og om den er udløbet ud fra dagens dato
+                if (agreements.getEndDate() != null && agreements.getEndDate().after(now)) {
                     carRepository.changeStatus(Status.EXPIRED, vehicleNumber);
-                    }
                 }
             }
         }

@@ -57,9 +57,7 @@ public class CarService {
             case 4500 -> kilometerPrice = kilometersPrice().get("4.500 km.");
         }
 
-        int sum = monthlyPrice + kilometerPrice;
-
-        return sum;
+        return monthlyPrice + kilometerPrice;
     }
 
     public int amountOfCars() {
@@ -82,8 +80,8 @@ public class CarService {
 
         int totalSum = 0;
 
-        for (int i=0; i < rentedCars.size(); i++) {
-            totalSum += calculateTotalPrice(rentedCars.get(i));
+        for (Car rentedCar : rentedCars) {
+            totalSum += calculateTotalPrice(rentedCar);
         }
 
         return totalSum;
@@ -94,23 +92,26 @@ public class CarService {
 
     public boolean isKilometersDrivenNowHigher(int vehicleNumber, int totalKilometersTraveled) {
 
+        //Tjekker om bilen der bliver sendt fra controlleren eksister listen af udlejet biler
         for (Car car : carRepository.getAllCarsStatus(Status.RENTED)) {
+
+            //Hvis bilens vehicleNumber stemmer overens med en af bilerne i listen af udlejet biler så tjekker vi antal kilometer kørt
             if (car.getVehicleNumber() == vehicleNumber) {
-                if (car.getTotalKilometersDriven() < totalKilometersTraveled) {
-                    return true;
-                }
-                else return false;
-            }
-        }
-        for (Car car : carRepository.getAllCarsStatus(Status.EXPIRED)) {
-            if (car.getVehicleNumber() == vehicleNumber) {
-                if (car.getTotalKilometersDriven() < totalKilometersTraveled) {
-                    return true;
-                }
-                else return false;
+                //Hvis de indtastede kilometer fra brugeren er højere end de nuværende kørte kilometer returnere vi true. Hvis ikke returnere vi false
+                return car.getTotalKilometersDriven() < totalKilometersTraveled;
             }
         }
 
+        //Tjekker om bilen der bliver sendt fra controlleren eksister listen af udløbet biler
+        for (Car car : carRepository.getAllCarsStatus(Status.EXPIRED)) {
+            //Hvis bilens vehicleNumber stemmer overens med en af bilerne i listen af udløbet biler så tjekker vi antal kilometer kørt
+            if (car.getVehicleNumber() == vehicleNumber) {
+                //Hvis de indtastede kilometer fra brugeren er højere end de nuværende kørte kilometer returnere vi true. Hvis ikke returnere vi false
+                return car.getTotalKilometersDriven() < totalKilometersTraveled;
+            }
+        }
+
+        //Hvis bilen ikke eksistere i nogle af listerne returnere vi false
         return false;
     }
 
@@ -124,11 +125,7 @@ public class CarService {
             case 24 -> monthlyPrice = car.getMonthsPrice24();
             case 36 -> monthlyPrice = car.getMonthsPrice36();
         }
-        if (monthlyPrice == -1) {
-            return true;
-        } else {
-            return false;
-        }
+        return monthlyPrice == -1;
     }
 
 
