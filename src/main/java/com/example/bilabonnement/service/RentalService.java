@@ -88,11 +88,9 @@ public class RentalService {
                     vehicleNumber = car.getVehicleNumber();
                 }
 
-                //Tjekker at lejeaftalens slutdato eksisterer og om den er udløbet ud fra dagens dato
-                if (agreements.getEndDate() != null) {
-                    if (agreements.getEndDate().after(now)) {
-                        carRepository.changeStatus(Status.EXPIRED, vehicleNumber);
-                    }
+                //Tjekker om lejeaftalens slutdato den er udløbet ud fra dagens dato
+                if (daysLeftToReturn(agreements.getEndDate()) < 0) {
+                    carRepository.changeStatus(Status.EXPIRED, vehicleNumber);
                 }
             }
         }
