@@ -18,6 +18,7 @@ public class DamageController {
     private DamageRepository damageRepository = new DamageRepository();
 
 
+    //Viser biler der enten er beskadet eller på lager
     @GetMapping("/damageRegistration")
     public String registerDamages(Model model){
         model.addAttribute("allCars", carRepository.getAllCars());
@@ -28,6 +29,7 @@ public class DamageController {
         return "damageRegistration";
     }
 
+    //Finder den rigtige bil der skal registreres, som skadet
     @PostMapping("/registerDamage")
     public String registerDamage(WebRequest dataFromForm, Model model) {
         int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
@@ -44,6 +46,7 @@ public class DamageController {
         return "damageReport";
     }
 
+    //Opretter en skadesreport ud fra de værdier brugeren har indtastet
     @PostMapping("/createDamageReport")
     public String createDamageReport(WebRequest dataFromForm) {
         //Hent bilen der er blevet valgt ud fra "vehicleNumber"
@@ -68,6 +71,7 @@ public class DamageController {
         return "redirect:/damageRegistration";
     }
 
+    //Returnere bilen fra reparation ved at sætte status tilbage til "på lager"
     @PostMapping("/returnFromRepair")
     public String returnFromRepair(WebRequest dataFromForm) {
         int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));

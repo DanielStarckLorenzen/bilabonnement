@@ -25,6 +25,7 @@ public class RentalController {
     private RentalService rentalService = new RentalService();
 
 
+    //Tager imod værdierne valgt ved oprettelse af en lejeaftale og opretter en lejeaftale i databasen
     @PostMapping("/registrerAgreement")
     public String registrerAgreement(WebRequest dataFromForm) {
         int monthsRented = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("monthsRented")));
@@ -39,6 +40,8 @@ public class RentalController {
                 chosenCar = car;
             }
         }
+
+        //Hvis brugeren har valgt prisen -1 bliver lejeaftalen ikke oprettet
         if (carService.isCarPriceMinusOne(chosenCar, monthsRented)) {
             return "redirect:/showCar?frameNumber=" + chosenCar.getFrameNumber();
         } else {
@@ -52,6 +55,7 @@ public class RentalController {
         }
     }
 
+    //Sender den valgte bil der skal oprettes en lejeaftale på
     @PostMapping("/setUpAgreement")
     public String setUpAgreement(WebRequest dataFromForm){
         String frameNumber = dataFromForm.getParameter("frameNumber");
@@ -59,6 +63,7 @@ public class RentalController {
         return "redirect:/showCar?frameNumber=" + frameNumber;
     }
 
+    //Sender de nødvendige lister af biler, så bilerne kan ses
     @GetMapping("/dataRegistration")
     public String registerData(Model model){
         model.addAttribute("carsOnStock", carRepository.getAllCarsStatus(Status.ON_STOCK));

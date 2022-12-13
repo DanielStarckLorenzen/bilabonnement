@@ -26,6 +26,7 @@ public class CarController {
     private RentalService rentalService = new RentalService();
 
 
+    //Start siden der opdatere udløbne biler ved åbning og viser hvor mange biler hver "status" har
     @GetMapping("/")
     public String index(Model model) {
         model.addAttribute("allCars", carService.amountOfCars());
@@ -37,6 +38,7 @@ public class CarController {
         return "index";
     }
 
+    //Retunere en bil ved at opdatere bilens status og lejeaftalen
     @PostMapping("/returnCar")
     public String returnCar(WebRequest dataFromForm) {
         int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
@@ -53,6 +55,7 @@ public class CarController {
     }
 
 
+    //Viser forretningsiden med tilhørende data
     @GetMapping("/businessData")
     public String seeDataOverview(Model model) {
         model.addAttribute("totalSumOfRentedCars", carService.totalSumOfRentedCars());
@@ -63,6 +66,7 @@ public class CarController {
         return "businessData";
     }
 
+    //Viser bilen der er blevet valgt ved oprettelse af lejeaftale
     @GetMapping("/showCar")
     public String showCar(@RequestParam String frameNumber, Model model) {
         System.out.println(frameNumber);
@@ -79,7 +83,7 @@ public class CarController {
         return "showCar";
     }
 
-
+    //Viser alle bilerne ud fra den pågældende status der er blevet valgt
     @GetMapping("/showListOfCarData")
     public String showListOfCars(@RequestParam String status, Model model) {
         List<Car> cars = new ArrayList<>();
@@ -105,6 +109,7 @@ public class CarController {
         return "createCar";
     }
 
+    //Opretter en ny bil i databasen
     @PostMapping("/carCreated")
     public String createCar(WebRequest dataFromForm) {
         String frameNumber = dataFromForm.getParameter("frameNumber");
@@ -125,12 +130,14 @@ public class CarController {
         return "redirect:/";
     }
 
+    //Viser biler der kan sælges
     @GetMapping("/sellCarMenu")
     public String sellCarMenu(Model model) {
         model.addAttribute("carsOnStock", carRepository.getAllCarsStatus(Status.ON_STOCK));
         return "sellCar";
     }
 
+    //Videresender bilen der skal sælges
     @PostMapping("/carToBeSold")
     public String sellingOfCar(WebRequest dataFromForm) {
         String frameNumber = dataFromForm.getParameter("frameNumber");
@@ -138,6 +145,7 @@ public class CarController {
         return "redirect:/sellCar?frameNumber=" + frameNumber;
     }
 
+    //Fjerner den valgte bil fra databasen
     @GetMapping("/sellCar")
     public String sellCar(@RequestParam String frameNumber) {
         carRepository.removeCar(frameNumber);
