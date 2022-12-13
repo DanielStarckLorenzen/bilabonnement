@@ -89,8 +89,10 @@ public class RentalService {
                 }
 
                 //Tjekker at lejeaftalens slutdato eksisterer og om den er udløbet ud fra dagens dato
-                if (agreements.getEndDate() != null && agreements.getEndDate().after(now)) {
-                    carRepository.changeStatus(Status.EXPIRED, vehicleNumber);
+                if (agreements.getEndDate() != null) {
+                    if (agreements.getEndDate().after(now)) {
+                        carRepository.changeStatus(Status.EXPIRED, vehicleNumber);
+                    }
                 }
             }
         }
