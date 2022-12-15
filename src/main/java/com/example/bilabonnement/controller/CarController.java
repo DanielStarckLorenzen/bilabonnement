@@ -38,7 +38,7 @@ public class CarController {
         return "other/index";
     }
 
-    //Retunere en bil ved at opdatere bilens status og lejeaftalen
+    //Returnere en bil ved at opdatere bilens status og lejeaftalen
     @PostMapping("/returnCar")
     public String returnCar(WebRequest dataFromForm) {
         int vehicleNumber = Integer.parseInt(Objects.requireNonNull(dataFromForm.getParameter("vehicleNumber")));
@@ -50,12 +50,12 @@ public class CarController {
             carRepository.updateKilometersDriven(vehicleNumber, totalKilometersTraveled);
         }
 
-        return "redirect:/dataHandling/dataRegistration";
+        return "redirect:/dataRegistration";
 
     }
 
 
-    //Viser forretningsiden med tilhørende data
+    //Viser forretningssiden med tilhørende data
     @GetMapping("/businessData")
     public String seeDataOverview(Model model) {
         model.addAttribute("totalSumOfRentedCars", carService.totalSumOfRentedCars());
@@ -127,7 +127,7 @@ public class CarController {
 
         carRepository.createCar(new Car(frameNumber, model, manufacturer, isManual, accessories, co2Discharge, Status.ON_STOCK.toString(), monthsPrice3, monthsPrice6, monthsPrice12, monthsPrice24, monthsPrice36, 0, color));
 
-        return "redirect:/other/index";
+        return "redirect:/";
     }
 
     //Viser biler der kan sælges
@@ -150,7 +150,7 @@ public class CarController {
     public String sellCar(@RequestParam String frameNumber) {
         carRepository.removeCar(frameNumber);
 
-        return "redirect:/other/index";
+        return "redirect:/";
     }
 
 }

@@ -20,6 +20,7 @@ public class Car {
     private int totalKilometersDriven;
     private String color;
 
+    //Bil konstruktør med VehicleNumber
     public Car(int vehicleNumber, String frameNumber, String model, String manufacturer, boolean isManual, String accessories, double CO2discharge, String status, int monthsPrice3, int monthsPrice6, int monthsPrice12, int monthsPrice24, int monthsPrice36, int totalKilometersDriven, String color) {
         this.vehicleNumber = vehicleNumber;
         this.frameNumber = frameNumber;
@@ -38,6 +39,7 @@ public class Car {
         this.color = color;
     }
 
+    //Bil konstruktør uden VehicleNumber
     public Car(String frameNumber, String model, String manufacturer, boolean isManual, String accessories, double CO2discharge, String status, int monthsPrice3, int monthsPrice6, int monthsPrice12, int monthsPrice24, int monthsPrice36, int totalKilometersDriven, String color) {
         this.frameNumber = frameNumber;
         this.model = model;
