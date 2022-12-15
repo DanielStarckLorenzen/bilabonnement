@@ -14,65 +14,70 @@
 <body>
 <div>
     <form action="/carCreated" method="post">
-        <div class="input-group w50">
+        <div class="leftColumn">
+            <br>
+        <div class="input-group w-50">
         <span class="input-group-text">Stelnummer</span>
         <input type="text" class="form-control" name="frameNumber">
         </div>
-
-        <div class="input-group w50">
+        <br>
+        <div class="input-group w-50">
             <span class="input-group-text">Model</span>
             <input type="text" class="form-control" name="model">
         </div>
-
-        <div class="input-group w50">
+        <br>
+        <div class="input-group w-50">
             <span class="input-group-text">Mærke</span>
             <input type="text" class="form-control" name="manufacturer">
         </div>
-
+        <br>
         <!-- isManual -->
         <div class="form-check form-switch">
             <label class="form-check-label">Manuelt Gear</label>
             <input type="checkbox" class="form-check-input" name="isManual" value="true">
         </div>
-
-        <div class="input-group w50">
+        <br>
+        <div class="input-group w-50">
             <span class="input-group-text">Tilbehør</span>
             <input type="text" class="form-control" name="accessories">
         </div>
-
-        <div class="input-group w50">
+        <br>
+        <div class="input-group w-50">
             <span class="input-group-text">Farve</span>
             <input type="text" class="form-control" name="color">
         </div>
-
-        <div class="input-group w50">
+        </div>
+        <div class="rightColumn">
+        <br>
+        <div class="input-group">
             <span class="input-group-text">CO2 udledning</span>
             <input type="number" class="form-control" name="CO2discharge">
         </div>
-
-        <div class="input-group w50">
+        <br>
+        <div class="input-group">
             <span class="input-group-text">Pris for 3 måneder</span>
             <input type="number" class="form-control" name="3months">
         </div>
-
-        <div class="input-group w50">
+        <br>
+        <div class="input-group">
             <span class="input-group-text">Pris for 6 måneder</span>
             <input type="number" class="form-control" name="6months">
         </div>
-
-        <div class="input-group w50">
+        <br>
+        <div class="input-group">
             <span class="input-group-text">Pris for 12 måneder</span>
             <input type="number" class="form-control" name="12months">
         </div>
-
-        <div class="input-group w50">
+        <br>
+        <div class="input-group">
             <span class="input-group-text">Pris for 24 måneder</span>
             <input type="number" class="form-control" name="24months">
         </div>
-
-        <div class="input-group w50">
+        <br>
+        <div class="input-group">
             <span class="input-group-text">Pris for 36 måneder</span>
             <input type="number" class="form-control" name="36months">
+        </div>
         </div>
         <br>
         <button type="submit" class="btn btn-outline-success">Opret!</button>

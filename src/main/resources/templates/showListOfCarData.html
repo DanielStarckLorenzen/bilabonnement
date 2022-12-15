@@ -17,6 +17,7 @@
     <tr>
         <th scope="col">Mærke</th>
         <th scope="col">Model</th>
+        <th scope="col">Farve</th>
         <th scope="col">Manuelt gear</th>
         <th scope="col">CO2 udledning</th>
         <th scope="col">Stel-nummer</th>
@@ -26,6 +27,7 @@
     <tr th:each="car: ${cars}">
         <td th:text="${car.manufacturer}"></td>
         <td th:text="${car.model}"></td>
+        <td th:text="${car.color}"></td>
         <td th:text="${car.isManual}"></td>
         <td th:text="${car.CO2discharge}"></td>
         <td th:text="${car.frameNumber}"></td>

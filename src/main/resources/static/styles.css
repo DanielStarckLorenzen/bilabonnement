@@ -90,6 +90,19 @@
     position: relative;
 }
 
+.rightColumn {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 50%;
+}
+
+.leftColumn {
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
 #statusBox1 {
     background-color: #428bca;
     border: solid #428bca 1px;
