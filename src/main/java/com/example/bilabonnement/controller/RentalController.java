@@ -71,7 +71,7 @@ public class RentalController {
         model.addAttribute("rentalAgreements", rentalRepository.getAllRentalAgreements());
         model.addAttribute("carsExpired", carRepository.getAllCarsStatus(Status.EXPIRED));
 
-        return "dataRegistration";
+        return "dataHandling/dataRegistration";
     }
 
 }

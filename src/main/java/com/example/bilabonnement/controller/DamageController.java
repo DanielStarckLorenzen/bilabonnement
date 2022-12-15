@@ -26,7 +26,7 @@ public class DamageController {
         model.addAttribute("carsOnStock", carRepository.getAllCarsStatus(Status.ON_STOCK));
 
 
-        return "damageRegistration";
+        return "damage/damageRegistration";
     }
 
     //Finder den rigtige bil der skal registreres, som skadet
@@ -43,7 +43,7 @@ public class DamageController {
         }
         model.addAttribute("damagedCar", damagedCar);
 
-        return "damageReport";
+        return "damage/damageReport";
     }
 
     //Opretter en skadesreport ud fra de værdier brugeren har indtastet

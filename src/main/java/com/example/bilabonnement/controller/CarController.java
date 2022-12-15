@@ -35,7 +35,7 @@ public class CarController {
         model.addAttribute("carsDamaged", carService.amountOfCarsDamaged());
         rentalService.checkIfExpired();
 
-        return "index";
+        return "other/index";
     }
 
     //Retunere en bil ved at opdatere bilens status og lejeaftalen
