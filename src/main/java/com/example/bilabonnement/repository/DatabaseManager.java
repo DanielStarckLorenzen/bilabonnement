@@ -14,7 +14,7 @@ public class DatabaseManager {
 
     private DatabaseManager(){}
 
-    public static Connection getConnection(){
+    public static Connection getConn(){
         if(conn != null){
             System.out.println("Connection established!");
             return conn;

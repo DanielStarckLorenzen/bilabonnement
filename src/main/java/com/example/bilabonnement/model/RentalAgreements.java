@@ -3,7 +3,7 @@ package com.example.bilabonnement.model;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class RentalAgreements {
+public class    RentalAgreements {
 
     private int rentalId;
     private int monthsRented;

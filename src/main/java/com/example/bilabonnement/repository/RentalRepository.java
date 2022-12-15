@@ -10,7 +10,7 @@ import java.util.List;
 
 public class RentalRepository {
 
-    private Connection conn = DatabaseManager.getConnection();
+    private Connection conn = DatabaseManager.getConn();
     private PreparedStatement pst = null;
 
     public void updateIsOverTraveled(int kilometersOverdriven, int rentalId) {

@@ -50,7 +50,7 @@ public class CarController {
             carRepository.updateKilometersDriven(vehicleNumber, totalKilometersTraveled);
         }
 
-        return "redirect:/dataRegistration";
+        return "redirect:/dataHandling/dataRegistration";
 
     }
 
@@ -63,7 +63,7 @@ public class CarController {
         model.addAttribute("amountOfCarsOnStock", carService.amountOfCarsOnStock());
         model.addAttribute("amountOfCarsDamaged", carService.amountOfCarsDamaged());
 
-        return "businessData";
+        return "/other/businessData";
     }
 
     //Viser bilen der er blevet valgt ved oprettelse af lejeaftale
@@ -80,7 +80,7 @@ public class CarController {
         model.addAttribute("kilometersPrice", carService.kilometersPrice());
         model.addAttribute("chosenCar", chosenCar);
 
-        return "showCar";
+        return "/dataHandling/showCar";
     }
 
     //Viser alle bilerne ud fra den pågældende status der er blevet valgt
@@ -101,12 +101,12 @@ public class CarController {
         System.out.println(rentalService.daysLeftToReturn(rentalRepository.getEndDate(rentalRepository.getMaxRentalId(6))));
 
 
-        return "showListOfCarData";
+        return "/car/showListOfCarData";
     }
 
     @GetMapping("/createCar")
     public String carCreationSite() {
-        return "createCar";
+        return "/car/createCar";
     }
 
     //Opretter en ny bil i databasen
@@ -127,14 +127,14 @@ public class CarController {
 
         carRepository.createCar(new Car(frameNumber, model, manufacturer, isManual, accessories, co2Discharge, Status.ON_STOCK.toString(), monthsPrice3, monthsPrice6, monthsPrice12, monthsPrice24, monthsPrice36, 0, color));
 
-        return "redirect:/";
+        return "redirect:/other/index";
     }
 
     //Viser biler der kan sælges
     @GetMapping("/sellCarMenu")
     public String sellCarMenu(Model model) {
         model.addAttribute("carsOnStock", carRepository.getAllCarsStatus(Status.ON_STOCK));
-        return "sellCar";
+        return "/car/sellCar";
     }
 
     //Videresender bilen der skal sælges
@@ -150,7 +150,7 @@ public class CarController {
     public String sellCar(@RequestParam String frameNumber) {
         carRepository.removeCar(frameNumber);
 
-        return "redirect:/";
+        return "redirect:/other/index";
     }
 
 }

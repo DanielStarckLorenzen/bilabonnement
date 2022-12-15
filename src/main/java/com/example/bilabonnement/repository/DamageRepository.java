@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class DamageRepository {
 
 
-    private Connection conn = DatabaseManager.getConnection();
+    private Connection conn = DatabaseManager.getConn();
     private PreparedStatement pst = null;
 
     public void createDamageReport(Car car, String problem, double costs) {

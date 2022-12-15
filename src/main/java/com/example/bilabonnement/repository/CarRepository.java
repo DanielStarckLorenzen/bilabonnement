@@ -17,7 +17,7 @@ import java.util.List;
 
 public class CarRepository {
 
-    private Connection conn = DatabaseManager.getConnection();
+    private Connection conn = DatabaseManager.getConn();
     private PreparedStatement pst = null;
 
     public List<Car> getAllCars() {
